@@ -1,6 +1,5 @@
 <template>
 	<div class="explorer">
-		<div>{{msg}}</div>
 		<taskbar></taskbar>
 	</div>
 </template>
