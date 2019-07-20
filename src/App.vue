@@ -11,4 +11,9 @@
 
 </script>
 
-<style src='@/base.css'></style>
+<style src='./base.css'></style>
+<style lang="stylus" scoped>
+	#app
+		height 100%
+</style>
+

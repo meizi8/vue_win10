@@ -14,7 +14,7 @@
 		props: {
 			parentMessage: {
 				type: String,
-				default: '这是任务栏'
+				default: '桌面'
 				// require: true // 必填
 			}
 		},
@@ -27,21 +27,6 @@
 <style lang="stylus" scoped>
 	.taskbar
 		// position absolute
-		width 100%
-		height 100%
-		background-color #141617
-		color #fff
+		background-color #ccc
 
-
-		// &.left {
-		// 	left 0
-		// 	height 100%
-		// 	width 70px
-		// }
-
-		// &.bottom {
-		// 	bottom 0
-		// 	height 50px
-		// 	width 100%
-		// }
 </style>
