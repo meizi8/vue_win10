@@ -16,10 +16,6 @@ export default new Vuex.Store({
 	mutations: {
 		increment(state) {
 			state.count++
-		},
-		layoutChange(state){
-			console.log(22222);
-			console.log(state.style);
 		}
 	}
 })

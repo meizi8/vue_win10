@@ -1,7 +1,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from "./store";
+import store from './store'
+import moment from 'moment'
+
+Vue.prototype.$moment = moment;
+
+import './base.css'
+import './assets/iconfont/iconfont.css'
 
 Vue.config.devtools = true;
 Vue.config.productionTip = false

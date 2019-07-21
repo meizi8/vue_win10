@@ -1,5 +1,5 @@
 <template>
-	<div class='taskbar'>
+	<div>
 		<span>{{ parentMessage }}</span>
 	</div>
 </template>
@@ -25,8 +25,5 @@
 
 </script>
 <style lang="stylus" scoped>
-	.taskbar
-		// position absolute
-		background-color #ccc
 
 </style>
