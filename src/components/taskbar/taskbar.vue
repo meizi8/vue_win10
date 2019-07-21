@@ -4,8 +4,13 @@
 			<i class="iconfont icon-windows"></i>
 		</div>
 		<div class="tasks"></div>
-		<div class="icon">站位aasdasda</div>
-		<div class="time">{{getCurtime}}</div>
+		<div class="icon">
+			
+		</div>
+		<div class="time">
+			<div class="detail">{{getCurTime | moment('kk:mm')}}</div>
+			<div class="date">{{getCurTime | moment('YYYY/MM/DD')}}</div>
+		</div>
 		<div class="message">
 			<i class="iconfont icon-message"></i>
 		</div>
@@ -14,41 +19,27 @@
 </template>
 
 <script>
-	import curTime from '@/commonJs/curTime'
 	export default {
 		data() {
 			return {
-				position: 'left'
+
 			}
 		},
 		props: {
 
 		},
 		created() {
-			// setInterval(() => {
 
-			// 	console.log(curTime);
-			// }, 1000);
-			// this.timeInit();
 		},
 		computed:{
 			getSytle(){
 				return ['bottom','left','top','right'][this.$store.state.style.layout - 1];
 			},
-			getCurtime(){
-				return curTime.time;
+			getCurTime(){
+				return this.$store.state.curTime;
 			}
 		},
 		methods: {
-			// timeInit(){
-			// 	const updateTime = () => {
-			// 		this.curTime = new Date();
-			// 	}
-			// 	updateTime();
-			// 	setTimeout(updateTime, 1000);
-			// }
-		},
-		filters: {
 
 		}
 	}
@@ -62,9 +53,9 @@
 			display flex
 			align-items center
 			justify-content center
-			width 60px
+			width 48px
 			.iconfont
-				font-size 28px
+				font-size 22px
 		.message
 			width 50px
 			display flex
@@ -72,24 +63,29 @@
 			justify-content center
 			.iconfont
 				font-size 20px
-		.win:hover ,.showDesktop:hover ,.message:hover
-			background-color rgba(255,255,255,.2)
-
-
+		.win:hover ,.showDesktop:hover ,.message:hover ,.time:hover
+			background-color rgba(99,99,99,.4)
 
 		&.bottom,&.top
 			background-color #141617
 			color #fff
 			// .win
-			// 	display flex
-			// 	align-items center
-			// 	justify-content center
-			// 	width 60px
+			.time
+				display flex
+				flex-direction column
+				align-items center
+				justify-content space-around
+				padding 3px 8px
 			.tasks
 				flex 1
 				background-color #ccc
 			.showDesktop
 				width 10px
 				border-left .5px solid #fff;
-
+			.icon
+				display flex
+				align-items center
+				justify-content center
+				padding-left 8px
+				padding-right 8px
 </style>

@@ -2,20 +2,36 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import defaultStyle from '@/config/explorer'
 
+import time from '@/store/modules/time'
+import network from '@/store/modules/network'
+
 Vue.use(Vuex)
-const winStyle = localStorage.getItem('style') || defaultStyle;
+const config = localStorage.getItem('config') || defaultStyle;
 
+time.update.callback = function (time) {
+	store.commit('updateTime',time)
+}
 
-export default new Vuex.Store({
+network.update.callback = function (status) {
+	store.commit('updateNetwork',status)
+}
+
+const store = new Vuex.Store({
 	state: {
 		style: {
-			...winStyle
+			...config
 		},
-		count: 0,
+		curTime: time.value,	//当前时间
+		network: network.value,	//网络状态
 	},
 	mutations: {
-		increment(state) {
-			state.count++
+		updateTime(state,time){
+			state.curTime = time;
+		},
+		updateNetwork(state,status){
+			state.network = status;
 		}
 	}
 })
+
+export default store

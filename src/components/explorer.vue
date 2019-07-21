@@ -6,8 +6,8 @@
 </template>
 
 <script>
-	import taskbar from '@/components/common/taskbar';
-	import desktop from '@/components/common/desktop';
+	import taskbar from '@/components/taskbar/taskbar';
+	import desktop from '@/components/desktop/desktop';
 	export default {
 		// name: 'explorer',
 		data() {
@@ -40,22 +40,12 @@
 		flex-wrap nowrap
 		.desktop
 			flex 1
+			background-color #222
 		&.bottom
 			flex-direction column
-			.taskbar
-				// width 100%
-				// height 55px
 		&.left
 			flex-direction row-reverse
-			.taskbar
-				// width 70px
 		&.top
 			flex-direction column-reverse
-			.taskbar
-				// width 100%
-				// height 55px
-		&.right
-			.taskbar
-				// width 70px
 </style>
 

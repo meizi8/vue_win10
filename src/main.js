@@ -2,9 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import moment from 'moment'
 
-Vue.prototype.$moment = moment;
+Vue.use(require('vue-moment'));
 
 import './base.css'
 import './assets/iconfont/iconfont.css'
