@@ -4,8 +4,8 @@
 			<i class="iconfont icon-windows"></i>
 		</div>
 		<div class="tasks"></div>
-		<div class="icon">
-			
+		<div class="taskicon">
+			<taskicon></taskicon>
 		</div>
 		<div class="time">
 			<div class="detail">{{getCurTime | moment('kk:mm')}}</div>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+	import taskicon from './components/taskicon'
 	export default {
 		data() {
 			return {
@@ -41,6 +42,9 @@
 		},
 		methods: {
 
+		},
+		components: {
+			taskicon
 		}
 	}
 
@@ -82,7 +86,7 @@
 			.showDesktop
 				width 10px
 				border-left .5px solid #fff;
-			.icon
+			.taskicon
 				display flex
 				align-items center
 				justify-content center
