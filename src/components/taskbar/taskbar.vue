@@ -82,7 +82,7 @@
 				padding 3px 8px
 			.tasks
 				flex 1
-				background-color #ccc
+				// background-color #ccc
 			.showDesktop
 				width 10px
 				border-left .5px solid #fff;

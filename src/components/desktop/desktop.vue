@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<span>{{ parentMessage }}</span>
+	<div class="wallpaper" :style="`background-image: url('${wallpaperSrc}')`">
+
 	</div>
 </template>
 
@@ -8,22 +8,27 @@
 	export default {
 		data() {
 			return {
-				position: 'left'
+				defaultWallpaper: false,
+
 			}
 		},
 		props: {
-			parentMessage: {
-				type: String,
-				default: '桌面'
-				// require: true // 必填
-			}
+
 		},
 		created() {
 
+		},
+		computed: {
+			wallpaperSrc() {
+				return this.$store.state.style.wallpaper ? this.$store.state.style.wallpaper : require('static/img/wallpaper.jpg');
+			}
 		}
 	}
 
 </script>
 <style lang="stylus" scoped>
-	
+	.wallpaper
+		color #fff
+		background-size cover
+		background-position center
 </style>

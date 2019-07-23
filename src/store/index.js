@@ -45,7 +45,6 @@ const store = new Vuex.Store({
 			}]
 		}], //任务栏小图标
 		curTime: time.value, //当前时间
-		network: network.value, //网络状态
 	},
 	mutations: {
 		updateTime(state, time) {
