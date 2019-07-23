@@ -8,7 +8,7 @@
 			<taskicon></taskicon>
 		</div>
 		<div class="time">
-			<div class="detail">{{getCurTime | moment('kk:mm')}}</div>
+			<div class="detail">{{getCurTime | moment('HH:mm')}}</div>
 			<div class="date">{{getCurTime | moment('YYYY/MM/DD')}}</div>
 		</div>
 		<div class="message">
