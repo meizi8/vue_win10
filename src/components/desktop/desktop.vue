@@ -1,7 +1,7 @@
 <template>
 	<div id="wallpaper" class="wallpaper" :style="`background-image: url('${wallpaperSrc}')`" @contextmenu.self.prevent="showDesktopMenu($event)" @click='desktopClick'>
 		<!-- 桌面右键菜单 -->
-		<desktopMenu v-if="isShowDesktopMenu" :site="desktopMenuSite"></desktopMenu>
+		<desktopMenu v-show="isShowDesktopMenu" :site="desktopMenuSite"></desktopMenu>
 	</div>
 </template>
 
@@ -12,7 +12,7 @@
 			return {
 				defaultWallpaper: false,
 				isShowDesktopMenu: false,
-				desktopMenuSite: null,
+				desktopMenuSite: {},
 			}
 		},
 		props: {
