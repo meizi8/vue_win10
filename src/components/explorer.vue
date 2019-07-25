@@ -6,46 +6,57 @@
 </template>
 
 <script>
-	import taskbar from '@/components/taskbar/taskbar';
-	import desktop from '@/components/desktop/desktop';
+	import taskbar from "@/components/taskbar/taskbar";
+	import desktop from "@/components/desktop/desktop";
 	export default {
 		// name: 'explorer',
 		data() {
-			return {
-
-			}
+			return {};
 		},
-		computed:{
-			getLayout(){
-				return ['bottom','left','top','right'][this.$store.state.style.layout - 1];
+		computed: {
+			getLayout() {
+				return ["bottom", "left", "top", "right"][
+					this.$store.state.style.layout - 1
+				];
 			},
-			getTaskbarClass(){
-				return (this.$store.state.style.layout === 1 || this.$store.state.style.layout === 3) ? `height: ${this.$store.state.style.taskbarHeight}px`: `width: ${this.$store.state.style.taskbarWidth}px`;
+			getTaskbarClass() {
+				return this.$store.state.style.layout === 1 ||
+					this.$store.state.style.layout === 3 ?
+					`height: ${this.$store.state.style.taskbarHeight}px` :
+					`width: ${this.$store.state.style.taskbarWidth}px`;
 			}
 		},
-		created() {
-		},
+		created() {},
 		components: {
 			taskbar,
 			desktop
-		},
-	}
+		}
+	};
 
 </script>
 
-<style lang="stylus" scoped>
-	.explorer
-		height 100%
-		display flex
-		flex-wrap nowrap
-		.desktop
-			flex 1
-			background-color #222
-		&.bottom
-			flex-direction column
-		&.left
-			flex-direction row-reverse
-		&.top
-			flex-direction column-reverse
-</style>
+<style lang="less" scoped>
+	.explorer {
+		height: 100%;
+		display: flex;
+		flex-wrap: nowrap;
 
+		.desktop {
+			flex: 1;
+			background-color: #222;
+		}
+
+		&.bottom {
+			flex-direction: column;
+		}
+
+		&.left {
+			flex-direction: row-reverse;
+		}
+
+		&.top {
+			flex-direction: column-reverse;
+		}
+	}
+
+</style>

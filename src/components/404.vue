@@ -6,39 +6,37 @@
 </template>
 <script>
 	export default {
-		data(){
+		data() {
 			return {
-				time: 3,
-			}
+				time: 3
+			};
 		},
-		created(){
-
-		},
-		mounted(){
-			const s1 = () =>{
-				if(--this.time > 0){
+		created() {},
+		mounted() {
+			const s1 = () => {
+				if (--this.time > 0) {
 					this.timeout = setTimeout(s1, 1000);
-				}else{
+				} else {
 					this.goHome();
 				}
-			}
+			};
 			s1();
 		},
-		methods:{
-			goHome(){
-				this.$router.push('/');
+		methods: {
+			goHome() {
+				this.$router.push("/");
 			}
 		}
-	}
+	};
 
 </script>
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 	.error {
 		text-align: center;
-		position absolute
-		left 50%
-		top 50%
-		transform translate(-50%,-50%)
+		position: absolute;
+		left: 50%;
+		top: 30%;
+		transform: translate(-50%, -50%);
 
 		.aaa {
 			font-size: 100px;
@@ -46,10 +44,12 @@
 
 		.bbb {
 			font-size: 40px;
+
 			.gohome {
 				text-decoration: underline;
 				cursor: pointer;
 			}
 		}
 	}
+
 </style>

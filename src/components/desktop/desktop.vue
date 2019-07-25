@@ -1,54 +1,55 @@
 <template>
-	<div id="wallpaper" class="wallpaper" :style="`background-image: url('${wallpaperSrc}')`" @contextmenu.self.prevent="showDesktopMenu($event)" @click='desktopClick'>
+	<div id="wallpaper" class="wallpaper" :style="`background-image: url('${wallpaperSrc}')`"
+		@contextmenu.self.prevent="showDesktopMenu($event)" @click='desktopClick'>
 		<!-- 桌面右键菜单 -->
 		<desktopMenu v-show="isShowDesktopMenu" :site="desktopMenuSite"></desktopMenu>
 	</div>
 </template>
 
 <script>
-	import desktopMenu from '@/components/contextmenu/desktopMenu.vue'
+	import desktopMenu from "@/components/contextmenu/desktopMenu.vue";
 	export default {
 		data() {
 			return {
 				defaultWallpaper: false,
 				isShowDesktopMenu: false,
-				desktopMenuSite: {},
-			}
+				desktopMenuSite: {}
+			};
 		},
-		props: {
-
-		},
-		created() {
-
-		},
+		props: {},
+		created() {},
 		computed: {
 			wallpaperSrc() {
-				return this.$store.state.style.wallpaper ? this.$store.state.style.wallpaper : require('static/img/wallpaper.jpg');
+				return this.$store.state.style.wallpaper ?
+					this.$store.state.style.wallpaper :
+					require("static/img/wallpaper.jpg");
 			}
 		},
 		methods: {
-			showDesktopMenu(event){
+			showDesktopMenu(event) {
 				this.desktopMenuSite = {
 					clientX: event.clientX,
 					clientY: event.clientY,
 					clientWidth: event.srcElement.clientWidth,
 					clientHeight: event.srcElement.clientHeight
-				}
+				};
 				this.isShowDesktopMenu = true;
 			},
-			desktopClick(){
+			desktopClick() {
 				this.isShowDesktopMenu = false;
 			}
 		},
 		components: {
 			desktopMenu
 		}
-	}
+	};
 
 </script>
-<style lang="stylus" scoped>
-	.wallpaper
-		color #fff
-		background-size cover
-		background-position center
+<style lang="less" scoped>
+	.wallpaper {
+		color: #fff;
+		background-size: cover;
+		background-position: center;
+	}
+
 </style>
