@@ -1,6 +1,5 @@
 <template>
-	<div class="wrap" ref="aa" :style="`${clientX}`">
-		<!-- <div>{{text}}</div> -->
+	<div class="wrap" ref="aa" :style="style">
 		<ul>
 			<li>查看</li>
 			<li>排列方式</li>
@@ -8,7 +7,6 @@
 			<li>新建</li>
 			<li>个性化</li>
 		</ul>
-		<!-- <div>{{JSON.stringify(site)}}</div> -->
 	</div>
 </template>
 
@@ -16,29 +14,27 @@
 	export default {
 		data() {
 			return {
-
+				style: null,
 			}
 		},
-		props: ['site'],
-		computed: {
-			clientX(){
-				console.log(this.site);
-				if(this.$refs.aa){
-					let style;
-					if( this.site.clientX + this.$refs.aa.scrollWidth > this.site.clientWidth){
-						style = `right: 0;`;
-					}else{
-						style = `left: ${this.site.clientX}px;`;
-					}
-
-					if( this.site.clientY + this.$refs.aa.scrollHeight > this.site.clientHeight){
-						style += `top: ${this.site.clientY - this.$refs.aa.scrollHeight}px;`;
-					}else{
-						style += `top: ${this.site.clientY}px;`;
-					}
-					return style;
+		props: {
+			site: Object
+		},
+		watch:{
+			site(obj){
+				let style;
+				if( this.site.clientX + this.$refs.aa.scrollWidth > this.site.clientWidth){
+					style = `right: 0;`;
+				}else{
+					style = `left: ${this.site.clientX}px;`;
 				}
 
+				if( this.site.clientY + this.$refs.aa.scrollHeight > this.site.clientHeight){
+					style += `top: ${this.site.clientY - this.$refs.aa.scrollHeight}px;`;
+				}else{
+					style += `top: ${this.site.clientY}px;`;
+				}
+				this.style = style;
 			}
 		}
 	}
