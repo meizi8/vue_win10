@@ -3,11 +3,13 @@
 		@contextmenu.self.prevent="showDesktopMenu($event)" @click='desktopClick'>
 		<!-- 桌面右键菜单 -->
 		<desktopMenu v-show="isShowDesktopMenu" :site="desktopMenuSite"></desktopMenu>
+		<timeModule></timeModule>
 	</div>
 </template>
 
 <script>
 	import desktopMenu from "@/components/contextmenu/desktopMenu.vue";
+	import timeModule from '@/components/module/timeModule'
 	export default {
 		data() {
 			return {
@@ -40,7 +42,8 @@
 			}
 		},
 		components: {
-			desktopMenu
+			desktopMenu,
+			timeModule
 		}
 	};
 

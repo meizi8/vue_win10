@@ -26,11 +26,12 @@ input,
 textarea,
 /* form elements 表单元素 */
 th,
-td {
+td,
+div {
 	/* table elements 表格元素 */
 	margin: 0;
 	padding: 0;
-	box-sizing: content-box;
+	box-sizing: border-box;
 }
 
 /* 设置默认字体 */
@@ -147,7 +148,9 @@ hr {
 	border: none;
 	height: 1px;
 }
-html, body{
+
+html,
+body {
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
