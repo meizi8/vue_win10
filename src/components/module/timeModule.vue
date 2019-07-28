@@ -36,6 +36,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="footer">
+			<span>日期和时间设置</span>
+		</div>
 	</div>
 </template>
 
@@ -115,11 +118,14 @@
 
 <style lang="less" scoped>
 	.timeModule {
+		display: flex;
+		flex-direction: column;
 		box-sizing: border-box;
 		width: 365px;
 		height: 500px;
-		background-color: #292c2d;
+		background-color: #1d1d1deb;
 		padding: 5px;
+		font-size: 14px;
 
 		.header {
 			height: 110px;
@@ -147,17 +153,19 @@
 			.selectMonth {
 				flex: 5;
 				font-size: 14px;
+				padding-left: 10px;
 			}
 
 			.arrow {
 				flex: 2;
 				display: flex;
 				text-align: center;
-				// justify-content: flex-end;
 
 				div {
-					// flex: 1;
 					display: flex;
+					flex: 1;
+					justify-content: center;
+					cursor: pointer;
 
 					.iconfont {
 						font-size: 26px;
@@ -181,7 +189,7 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					height: 35px;
+					height: 40px;
 					width: 14.2857142857143%;
 				}
 
@@ -197,6 +205,23 @@
 					&:hover {
 						border: 1px solid #000;
 					}
+				}
+			}
+		}
+
+		.footer {
+			flex: 1;
+			padding-left: 34px;
+			display: flex;
+			align-items: center;
+
+			span {
+				cursor: pointer;
+				color: #ccc;
+				font-size: 13px;
+
+				&:hover {
+					color: #bbb;
 				}
 			}
 		}
