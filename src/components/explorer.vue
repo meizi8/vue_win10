@@ -1,5 +1,5 @@
 <template>
-	<div class="explorer" :class="getLayout">
+	<div class="explorer" :class="getLayout" @click.capture="windowClick" @contextmenu="windowRightClick">
 		<desktop class="desktop"></desktop>
 		<taskbar class="taskbar" :style="getTaskbarClass"></taskbar>
 	</div>
@@ -8,6 +8,8 @@
 <script>
 	import taskbar from "@/components/taskbar/taskbar";
 	import desktop from "@/components/desktop/desktop";
+	import timeModuleBus from './module/timeModule.bus'
+
 	export default {
 		// name: 'explorer',
 		data() {
@@ -30,6 +32,15 @@
 		components: {
 			taskbar,
 			desktop
+		},
+		methods: {
+			windowClick(){
+				console.log('点击了window左键');
+				timeModuleBus.$emit('show',0);
+			},
+			windowRightClick(){
+				console.log('点击了右键');
+			}
 		}
 	};
 

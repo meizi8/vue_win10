@@ -1,5 +1,5 @@
 <template>
-	<div class="timeModule">
+	<div class="timeModule" @click.stop=''>
 		<div class="header">
 			<div class="big">{{curTime | moment('HH:mm:ss')}}</div>
 			<div class="small">{{curTime | moment('YYYY年MM月DD日')}}</div>

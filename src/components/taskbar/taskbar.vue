@@ -7,7 +7,7 @@
 		<div class="taskicon">
 			<taskicon></taskicon>
 		</div>
-		<div class="time">
+		<div class="time" @click.capture="showTimeModule">
 			<div class="detail">{{getCurTime | moment('HH:mm')}}</div>
 			<div class="date">{{getCurTime | moment('YYYY/MM/DD')}}</div>
 		</div>
@@ -19,13 +19,14 @@
 </template>
 
 <script>
+	import timeModuleBus from '../module/timeModule.bus'
 	import taskicon from "./components/taskicon";
+
 	export default {
 		data() {
 			return {};
 		},
 		props: {},
-		created() {},
 		computed: {
 			getSytle() {
 				return ["bottom", "left", "top", "right"][
@@ -36,7 +37,13 @@
 				return this.$store.state.curTime;
 			}
 		},
-		methods: {},
+		created() {},
+		methods: {
+			showTimeModule(){
+				console.log(11111);
+				timeModuleBus.$emit('show', this.$store.state.style.layout);
+			}
+		},
 		components: {
 			taskicon
 		}
@@ -126,21 +133,25 @@
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+
 				li {
 					padding: 5px;
 				}
 			}
+
 			.time {
 				text-align: center;
 				line-height: 20px;
 				padding: 5px 0;
 				margin-bottom: 10px;
 			}
+
 			.message {
 				width: 100%;
 				padding: 10px 0;
 				margin-bottom: 10px;
 			}
+
 			.showDesktop {
 				height: 10px;
 				border-top: 0.5px solid #fff;
