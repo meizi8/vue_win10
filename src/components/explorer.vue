@@ -1,5 +1,5 @@
 <template>
-	<div class="explorer" :class="getLayout" @click.capture="windowClick" @contextmenu="windowRightClick">
+	<div class="explorer" :class="getLayout" @click="windowClick" @contextmenu="windowRightClick">
 		<desktop class="desktop"></desktop>
 		<taskbar class="taskbar" :style="getTaskbarClass"></taskbar>
 	</div>
@@ -35,8 +35,8 @@
 		},
 		methods: {
 			windowClick(){
-				console.log('点击了window左键');
-				timeModuleBus.$emit('show',0);
+				// console.log('点击了window左键');
+				timeModuleBus.$emit('hide');
 			},
 			windowRightClick(){
 				console.log('点击了右键');

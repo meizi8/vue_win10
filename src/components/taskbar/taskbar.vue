@@ -7,7 +7,7 @@
 		<div class="taskicon">
 			<taskicon></taskicon>
 		</div>
-		<div class="time" @click.capture="showTimeModule">
+		<div class="time" @click.stop="showTimeModule">
 			<div class="detail">{{getCurTime | moment('HH:mm')}}</div>
 			<div class="date">{{getCurTime | moment('YYYY/MM/DD')}}</div>
 		</div>
@@ -40,8 +40,7 @@
 		created() {},
 		methods: {
 			showTimeModule(){
-				console.log(11111);
-				timeModuleBus.$emit('show', this.$store.state.style.layout);
+				timeModuleBus.$emit('toggle', this.$store.state.style.layout);
 			}
 		},
 		components: {

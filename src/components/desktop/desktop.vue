@@ -45,14 +45,14 @@
 			},
 			defindBus() {
 				//时间模块
-				timeModuleBus.$on('show', param => {
+				timeModuleBus.$on('hide', () => {
+					this.showTimeModule = false;
+				}).$on('toggle', param => {
 					if (param) {
-						this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][param -
-							1
-						];
-						this.showTimeModule = true;
-					} else {
-						this.showTimeModule = false;
+						this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][this
+							.$store.state.style.layout - 1
+						]
+						this.showTimeModule = !this.showTimeModule;
 					}
 				})
 			}
