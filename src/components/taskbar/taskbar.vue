@@ -1,20 +1,28 @@
 <template>
-	<div :class="getSytle">
-		<div class="win">
-			<i class="iconfont icon-windows"></i>
+	<div>
+		<div class="taskbar" :class="getSytle">
+			<div class="win">
+				<i class="iconfont icon-windows"></i>
+			</div>
+			<div class="tasks"></div>
+			<div class="taskicon">
+				<taskicon></taskicon>
+			</div>
+			<div class="time" @click.stop="ClickTime">
+				<div class="detail">{{getCurTime | moment('HH:mm')}}</div>
+				<div class="date">{{getCurTime | moment('YYYY/MM/DD')}}</div>
+			</div>
+			<div class="message">
+				<i class="iconfont icon-message"></i>
+			</div>
+			<div class="showDesktop"></div>
+
+
+
 		</div>
-		<div class="tasks"></div>
-		<div class="taskicon">
-			<taskicon></taskicon>
+		<div class="module">
+			<timeModule v-if="showTimeModule" :class="getSytle"></timeModule>
 		</div>
-		<div class="time" @click.stop="showTimeModule">
-			<div class="detail">{{getCurTime | moment('HH:mm')}}</div>
-			<div class="date">{{getCurTime | moment('YYYY/MM/DD')}}</div>
-		</div>
-		<div class="message">
-			<i class="iconfont icon-message"></i>
-		</div>
-		<div class="showDesktop"></div>
 	</div>
 </template>
 
@@ -24,7 +32,10 @@
 
 	export default {
 		data() {
-			return {};
+			return {
+				showTimeModule: false,
+				timeModuleClass: null,
+			};
 		},
 		props: {},
 		computed: {
@@ -37,14 +48,36 @@
 				return this.$store.state.curTime;
 			}
 		},
-		created() {},
+		created() {
+			this.defindBus();
+		},
 		methods: {
-			showTimeModule(){
-				timeModuleBus.$emit('toggle', this.$store.state.style.layout);
+			ClickTime() {
+				// if (!this.showTimeModule) {
+				// 	console.log(this.getSytle);
+				// 	this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][
+				// 		this.$store.state.style.layout - 1
+				// 	];
+				// }
+				this.showTimeModule = !this.showTimeModule;
+			},
+			defindBus() {
+				//时间模块
+				// timeModuleBus.$on('hide', () => {
+				// 	this.showTimeModule = false;
+				// }).$on('toggle', param => {
+				// 	if (param) {
+				// 		this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][this
+				// 			.$store.state.style.layout - 1
+				// 		]
+				// 		this.showTimeModule = !this.showTimeModule;
+				// 	}
+				// })
 			}
 		},
 		components: {
-			taskicon
+			taskicon,
+			timeModule: () => import('../module/timeModule')
 		}
 	};
 
@@ -52,9 +85,12 @@
 
 <style lang="less" scoped>
 	.taskbar {
+		position: relative;
+		z-index: 2;
 		display: flex;
 		background-color: #141617;
 		color: #fff;
+		width: 100%;
 
 		.win {
 			display: flex;
@@ -156,6 +192,36 @@
 				border-top: 0.5px solid #fff;
 			}
 
+		}
+	}
+
+	.module {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+
+		>div {
+			position: absolute;
+		}
+
+		.bottom {
+			transform: translateY(-100%);
+			right: 0;
+		}
+
+		.left {
+			left: 100%;
+			bottom: 0;
+		}
+
+		.top {
+			top: 100%;
+			right: 0;
+		}
+
+		.right {
+			transform: translateX(-100%);
+			bottom: 0;
 		}
 	}
 

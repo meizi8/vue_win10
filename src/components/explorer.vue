@@ -1,5 +1,5 @@
 <template>
-	<div class="explorer" :class="getLayout" @click="windowClick" @contextmenu="windowRightClick">
+	<div class="explorer" :class="getLayout" @click="windowClick" @contextmenu="windowClick">
 		<desktop class="desktop"></desktop>
 		<taskbar class="taskbar" :style="getTaskbarClass"></taskbar>
 	</div>
@@ -55,6 +55,9 @@
 		.desktop {
 			flex: 1;
 			background-color: #222;
+		}
+		.taskbar {
+			position: relative;
 		}
 
 		&.bottom {

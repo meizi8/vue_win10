@@ -1,9 +1,8 @@
 <template>
 	<div id="wallpaper" class="wallpaper" :style="`background-image: url('${wallpaperSrc}')`"
-		@contextmenu.self.prevent="showDesktopMenu($event)" @click='desktopClick'>
+		@contextmenu="showDesktopMenu($event)" @click='desktopClick'>
 		<!-- 桌面右键菜单 -->
 		<desktopMenu v-show="isShowDesktopMenu" :site="desktopMenuSite"></desktopMenu>
-		<timeModule v-if="showTimeModule" :class="timeModuleClass"></timeModule>
 	</div>
 </template>
 
@@ -21,7 +20,6 @@
 		},
 		props: {},
 		created() {
-			this.defindBus();
 		},
 		computed: {
 			wallpaperSrc() {
@@ -42,24 +40,10 @@
 			},
 			desktopClick() {
 				this.isShowDesktopMenu = false;
-			},
-			defindBus() {
-				//时间模块
-				timeModuleBus.$on('hide', () => {
-					this.showTimeModule = false;
-				}).$on('toggle', param => {
-					if (param) {
-						this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][this
-							.$store.state.style.layout - 1
-						]
-						this.showTimeModule = !this.showTimeModule;
-					}
-				})
 			}
 		},
 		components: {
-			desktopMenu: () => import('../contextmenu/desktopMenu.vue'),
-			timeModule: () => import('../module/timeModule')
+			desktopMenu: () => import('../module/desktopMenu.vue'),
 		}
 	};
 
@@ -70,25 +54,6 @@
 		color: #fff;
 		background-size: cover;
 		background-position: center;
-
-		.right-bottom {
-			position: absolute;
-			right: 0;
-			bottom: 0;
-		}
-
-
-		.left-bottom {
-			position: absolute;
-			left: 0;
-			bottom: 0;
-		}
-
-		.right-top {
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
 	}
 
 </style>
