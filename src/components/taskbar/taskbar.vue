@@ -27,9 +27,8 @@
 </template>
 
 <script>
-	import timeModuleBus from '../module/timeModule.bus'
+	import { timeModuleBus,hideAllModule } from '../module/module.bus'
 	import taskicon from "./components/taskicon";
-
 	export default {
 		data() {
 			return {
@@ -49,30 +48,18 @@
 			}
 		},
 		created() {
-			this.defindBus();
+			this.InitBus();
 		},
 		methods: {
 			ClickTime() {
-				// if (!this.showTimeModule) {
-				// 	console.log(this.getSytle);
-				// 	this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][
-				// 		this.$store.state.style.layout - 1
-				// 	];
-				// }
+				hideAllModule(['timeModuleBus']);
 				this.showTimeModule = !this.showTimeModule;
 			},
-			defindBus() {
+			InitBus() {
 				//时间模块
-				// timeModuleBus.$on('hide', () => {
-				// 	this.showTimeModule = false;
-				// }).$on('toggle', param => {
-				// 	if (param) {
-				// 		this.timeModuleClass = ['right-bottom', 'left-bottom', 'right-top', 'right-bottom'][this
-				// 			.$store.state.style.layout - 1
-				// 		]
-				// 		this.showTimeModule = !this.showTimeModule;
-				// 	}
-				// })
+				timeModuleBus.$on('hide', () => {
+					this.showTimeModule = false;
+				})
 			}
 		},
 		components: {

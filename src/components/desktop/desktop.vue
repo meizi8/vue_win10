@@ -7,8 +7,7 @@
 </template>
 
 <script>
-	import timeModuleBus from '@/components/module/timeModule.bus'
-
+	import { desktopMenuModuleBus,hideAllModule } from "../module/module.bus";
 	export default {
 		data() {
 			return {
@@ -20,6 +19,7 @@
 		},
 		props: {},
 		created() {
+			this.InitBus();
 		},
 		computed: {
 			wallpaperSrc() {
@@ -30,6 +30,7 @@
 		},
 		methods: {
 			showDesktopMenu(event) {
+				hideAllModule();
 				this.desktopMenuSite = {
 					clientX: event.clientX,
 					clientY: event.clientY,
@@ -40,6 +41,11 @@
 			},
 			desktopClick() {
 				this.isShowDesktopMenu = false;
+			},
+			InitBus(){
+				desktopMenuModuleBus.$on('hide',()=>{
+					this.isShowDesktopMenu = false;
+				})
 			}
 		},
 		components: {
