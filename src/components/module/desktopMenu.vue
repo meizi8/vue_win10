@@ -5,7 +5,7 @@
 			<li>排列方式</li>
 			<li>刷新</li>
 			<li>新建</li>
-			<li>个性化</li>
+			<li @click="openIndividuation">个性化</li>
 		</ul>
 	</div>
 </template>
@@ -42,6 +42,13 @@
 					style += `top: ${this.site.clientY}px;`;
 				}
 				this.style = style;
+			}
+		},
+		methods: {
+			openIndividuation() {
+				import('./application/app.bus').then(bus => {
+					bus.default.systemSettingApp.show('individuation')
+				})
 			}
 		}
 	};

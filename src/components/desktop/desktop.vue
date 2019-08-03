@@ -49,7 +49,7 @@
 			}
 		},
 		components: {
-			desktopMenu: () => import('../module/desktopMenu.vue'),
+			desktopMenu: () => import('../module/desktopMenu'),
 		}
 	};
 

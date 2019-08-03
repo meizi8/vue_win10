@@ -10,6 +10,9 @@
 			return {
 
 			}
+		},
+		created(){
+			this.$router.push('/home');
 		}
 	}
 
