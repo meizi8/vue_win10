@@ -47,7 +47,7 @@
 		methods: {
 			openIndividuation() {
 				import('./application/app.bus').then(bus => {
-					bus.default.systemSettingApp.show('individuation')
+					bus.default.systemSettingApp.show('backgrounp')
 				})
 			}
 		}
