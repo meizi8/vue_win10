@@ -2,7 +2,7 @@
 	<div class="timeModule" @click.stop>
 		<div class="header">
 			<div class="big">{{curTime | moment('HH:mm:ss')}}</div>
-			<div class="small">{{curTime | moment('YYYY年MM月DD日')}}</div>
+			<span @click='selectCurMonth' class="small">{{curTime | moment('YYYY年MM月DD日')}}</span>
 		</div>
 		<div class="body">
 			<div class="control">
@@ -71,9 +71,12 @@
 			}
 		},
 		created() {
-			this.selectMonth = new Date();
+			this.selectCurMonth();
 		},
 		methods: {
+			selectCurMonth(){
+				this.selectMonth = new Date();
+			},
 			getFirstDay(month) {
 				return new Date(month.setDate(1));
 			},
@@ -134,12 +137,16 @@
 
 			.big {
 				font-size: 42px;
+				margin-bottom: 10px;
 			}
 
 			.small {
-				margin-top: 10px;
 				font-size: 14px;
 				color: #d9d1ce;
+				cursor: pointer;
+				&:hover {
+					color: #fff;
+				}
 			}
 		}
 
