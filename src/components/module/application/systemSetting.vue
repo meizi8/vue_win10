@@ -1,12 +1,18 @@
 <template>
-	<div id="systemSetting" style="width:1022px;height:730px" ref="move">
+	<div id="systemSetting" style="width:1022px;height:730px" ref="move" @contextmenu.prevent.stop="rightClick">
 		<div class="win-header" v-drag:target="this.$refs">
 			<div class="win-title">设置</div>
 			<div class="win-control">
-				<div class="minimize">最小化</div>
-				<div class="Windowed">窗口化</div>
-				<div class="maximize">最大化</div>
-				<div class="close" @click="close">关闭</div>
+				<div class="minimize">
+					<i class="iconfont icon-minimality"></i>
+				</div>
+				<div class="windowed">
+					<i class="iconfont icon-windowed"></i></div>
+				<div class="maximize">
+					<i class="iconfont icon-maximize"></i></div>
+				<div class="close" @click="close">
+					<i class="iconfont icon-close"></i>
+				</div>
 			</div>
 		</div>
 		<div class="win-content">
@@ -35,6 +41,7 @@
 	</div>
 </template>
 <script>
+	import {hideAllModule} from '../module.bus.js'
 	export default {
 		data() {
 			return {
@@ -57,6 +64,9 @@
 		methods: {
 			togglePage(e) {
 				this.page = e;
+			},
+			rightClick(){
+				hideAllModule();
 			},
 
 			close() {
@@ -83,9 +93,26 @@
 			.win-title {
 				float: left;
 			}
+
 			.win-control {
 				float: right;
 				display: flex;
+				> div {
+					width: 48px;
+					.iconfont {
+						font-size: 24px;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+					&:hover {
+						background-color: #e6e6e6;
+					}
+					&.close:hover {
+						color: #fff;
+						background-color: #e81123;
+					}
+				}
 			}
 		}
 
@@ -104,6 +131,7 @@
 						line-height: 20px;
 						font-weight: 600;
 					}
+
 					.menu {
 						line-height: 48px;
 						font-size: 14px;
