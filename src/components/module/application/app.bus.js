@@ -13,11 +13,15 @@ const systemSettingApp = function () {
 	this.isCreate = false;
 	this.page = '';
 	this.bus = createVue();
+	this.vm;
 }
 systemSettingApp.prototype = {
 	create: function () {
+		this.bus.$once('destroy', () => {
+			this.destroy();
+		});
 		const systemSettingCur = Vue.extend(systemSetting);
-		const D_systemSetting = new systemSettingCur({
+		this.vm = new systemSettingCur({
 			data: function () {
 				return {
 					page: this.page,
@@ -25,7 +29,7 @@ systemSettingApp.prototype = {
 				}
 			}.bind(this),
 		}).$mount();
-		desktop().appendChild(D_systemSetting.$el);
+		desktop().appendChild(this.vm.$el);
 	},
 	show: function (option) {
 		if (!this.isCreate) {
@@ -34,7 +38,11 @@ systemSettingApp.prototype = {
 		}
 		this.bus.$emit('pageChange', option);
 	},
-
+	destroy: function () {
+		this.vm.$el.parentNode.removeChild(this.vm.$el)
+		this.vm.$destroy();
+		this.isCreate = false;
+	},
 }
 
 export default {
