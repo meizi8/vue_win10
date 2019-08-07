@@ -1,16 +1,17 @@
 <template>
-	<div class="wrap" ref="aa" :style="style">
+	<div class="wrap" ref="aa" :style="style" @contextmenu.prevent.stop="hideAllModule">
 		<ul>
 			<li>查看</li>
 			<li>排列方式</li>
 			<li>刷新</li>
 			<li>新建</li>
-			<li @click="openIndividuation">个性化</li>
+			<li @click="openIndividuation"  @contextmenu.prevent.stop="openIndividuation">个性化</li>
 		</ul>
 	</div>
 </template>
 
 <script>
+	import { hideAllModule } from './module.bus';
 	export default {
 		data() {
 			return {
@@ -45,7 +46,11 @@
 			}
 		},
 		methods: {
+			hideAllModule(){
+				hideAllModule();
+			},
 			openIndividuation() {
+				hideAllModule();
 				import('./application/app.bus').then(bus => {
 					bus.default.systemSettingApp.show('backgrounp')
 				})
