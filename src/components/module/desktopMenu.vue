@@ -51,7 +51,7 @@
 			},
 			openIndividuation() {
 				hideAllModule();
-				import('./application/app.bus').then(bus => {
+				import('./application/common/app.bus').then(bus => {
 					bus.default.systemSettingApp.show('backgrounp')
 				})
 			}

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import systemSetting from './systemSetting.vue'
+import systemSetting from '../systemSetting.vue'
 
 const desktop = function () {
 	return document.getElementById('wallpaper');

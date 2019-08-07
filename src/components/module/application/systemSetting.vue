@@ -1,47 +1,54 @@
 <template>
-	<div id="systemSetting" style="width:1022px;height:730px" ref="move" @contextmenu.prevent.stop="rightClick">
-		<div class="win-header" v-drag:target="this.$refs">
-			<div class="win-title">设置</div>
-			<div class="win-control">
-				<div class="minimize">
-					<i class="iconfont icon-minimality"></i>
+	<windowContarl style="width:1022px;height:730px;left: 20px;top: 50px;" ref="move" @contextmenu.prevent.stop="rightClick">
+  		<template v-slot:default="slotProps">
+			<div id="systemSetting">
+				<div class="win-header" v-drag:target="slotProps.father">
+					<div class="win-title">设置</div>
+					<div class="win-control">
+						<div class="minimize">
+							<i class="iconfont icon-minimality"></i>
+						</div>
+						<div class="windowed">
+							<i class="iconfont icon-windowed"></i></div>
+						<div class="maximize">
+							<i class="iconfont icon-maximize"></i></div>
+						<div class="close" @click="close">
+							<i class="iconfont icon-close"></i>
+						</div>
+					</div>
 				</div>
-				<div class="windowed">
-					<i class="iconfont icon-windowed"></i></div>
-				<div class="maximize">
-					<i class="iconfont icon-maximize"></i></div>
-				<div class="close" @click="close">
-					<i class="iconfont icon-close"></i>
-				</div>
-			</div>
-		</div>
-		<div class="win-content">
-			<div class="setting-left">
-				<div class="subject">
-					<div class="title">个性化</div>
-					<ul class="menu">
-						<li v-for="item in menuList" :key="item.flot" :class="page==item.flot?'active':''"
-							@click='togglePage(item.flot)'>
-							<i class="icon"></i>
-							<span>{{item.text}}</span>
-						</li>
-					</ul>
-				</div>
+				<div class="win-content">
+					<div class="setting-left">
+						<div class="subject">
+							<div class="title">个性化</div>
+							<ul class="menu">
+								<li v-for="item in menuList" :key="item.flot" :class="page==item.flot?'active':''"
+									@click='togglePage(item.flot)'>
+									<i class="icon"></i>
+									<span>{{item.text}}</span>
+								</li>
+							</ul>
+						</div>
 
-			</div>
-			<div class="setting-rigth">
-				<div class="backgrounp" v-show="page=='backgrounp'">
-					背景页面
+					</div>
+					<div class="setting-rigth">
+						<div class="backgrounp" v-show="page=='backgrounp'">
+							背景页面
+						</div>
+						<div class="color" v-show="page=='color'">
+							颜色页面
+						</div>
+					</div>
 				</div>
-				<div class="color" v-show="page=='color'">
-					颜色页面
-				</div>
 			</div>
-		</div>
-	</div>
+  		</template>
+	</windowContarl>
 </template>
 <script>
-	import {hideAllModule} from '../module.bus.js'
+	import {
+		hideAllModule
+	} from '../module.bus.js'
+	import windowContarl from './common/window-contarl';
 	export default {
 		data() {
 			return {
@@ -65,7 +72,7 @@
 			togglePage(e) {
 				this.page = e;
 			},
-			rightClick(){
+			rightClick() {
 				hideAllModule();
 			},
 
@@ -73,16 +80,18 @@
 				this.bus.$emit('destroy')
 			}
 		},
+		components: {
+			windowContarl
+		}
 	}
 
 </script>
 <style lang="less" scoped>
 	#systemSetting {
 		color: #000;
-		position: absolute;
-		left: 20px;
-		top: 50px;
 		border: 1px solid #707070;
+		width: 100%;
+		height: 100%;
 
 		.win-header {
 			position: absolute;
@@ -97,17 +106,21 @@
 			.win-control {
 				float: right;
 				display: flex;
-				> div {
+
+				>div {
 					width: 48px;
+
 					.iconfont {
 						font-size: 24px;
 						display: flex;
 						justify-content: center;
 						align-items: center;
 					}
+
 					&:hover {
 						background-color: #e6e6e6;
 					}
+
 					&.close:hover {
 						color: #fff;
 						background-color: #e81123;

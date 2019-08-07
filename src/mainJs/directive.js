@@ -3,7 +3,7 @@ import { hideAllModule } from '../components/module/module.bus'
 
 Vue.directive('drag', {
 	inserted: function (el,binding,vnode) {
-		const target = binding.value.move;
+		const target = binding.value;	//DOM元素
 		el.onmousedown = (e) => {
 			hideAllModule();
 			//算出鼠标相对元素的位置
