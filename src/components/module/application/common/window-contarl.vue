@@ -49,12 +49,13 @@
 					const minWidth = parseInt(windowContorl.style.minWidth);
 
 					el.onmousedown = e => {
+						
 						const disX = e.clientX;
-
 						const windowContorlWdith = parseInt(windowContorl.style.width);
+
 						document.onmousemove = e => {
 							const x = e.clientX - disX;
-							if(windowContorlWdith + x < minWidth) return;
+							if (windowContorlWdith + x < minWidth) return;
 							windowContorl.style.width = windowContorlWdith + x + 'px';
 						};
 						document.onmouseup = e => {
