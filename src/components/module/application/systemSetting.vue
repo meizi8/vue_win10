@@ -1,5 +1,5 @@
 <template>
-	<windowContarl style="width:1022px;height:730px;left: 20px;top: 50px;" ref="move" @contextmenu.prevent.stop="rightClick">
+	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;">
   		<template v-slot:default="slotProps">
 			<div id="systemSetting">
 				<div class="win-header" v-drag:target="slotProps.father">
