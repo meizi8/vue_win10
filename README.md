@@ -4,7 +4,7 @@
 > 也是自学Vue写的第一个项目
 > 可能有一些不符合规范的地方，请大佬指正
 
-[项目演示地址](https://siman.fun/){:target="_blank"}
+<a href="https://siman.fun/" target="_blank">项目演示地址</a>
 
 ## 后期开发方向：
 1. 完善基础功能
