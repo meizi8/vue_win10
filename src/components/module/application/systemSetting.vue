@@ -1,6 +1,6 @@
 <template>
 	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;min-height:320px;">
-  		<template v-slot:default="slotProps">
+		<template v-slot:default="slotProps">
 			<div id="systemSetting">
 				<div class="win-header" v-drag:target="slotProps.father">
 					<div class="win-title">设置</div>
@@ -34,21 +34,24 @@
 					<div class="setting-rigth">
 						<div class="background" v-show="page=='background'">
 							<div class="title">背景</div>
-							<div class="example">
-								<div class="exampleBG" style="background-color:#4c4a48;">
-									<div class="exampleStartMenu">
-										<div>开始菜单(写不动了)</div>
+							<div class="content">
+								<div class="example">
+									<div class="exampleBG" style="background-color:#4c4a48;">
+										<div class="exampleStartMenu">
+											<div>开始菜单(写不动了)</div>
+										</div>
 									</div>
+									<div class="exampleContarl"></div>
 								</div>
-								<div class="exampleContarl"></div>
-							</div>
-							<div class="item background-setting">
-								<div class="item-title">背景</div>
-								<select name="" id="" @change='backgroundSetting' v-model='backgroundSet'>
-									<option value="1">图片</option>
-									<option value="2">纯色</option>
-									<!-- <option value="">幻灯片放映</option> -->
-								</select>
+								<div class="item background-setting">
+									<div class="item-title">背景</div>
+									<select name="" id="" @change='backgroundSetting' v-model='backgroundSet'>
+										<option value="1">图片</option>
+										<option value="2">纯色</option>
+										<!-- <option value="">幻灯片放映</option> -->
+									</select>
+								</div>
+
 							</div>
 						</div>
 						<div class="color" v-show="page=='color'">
@@ -57,7 +60,7 @@
 					</div>
 				</div>
 			</div>
-  		</template>
+		</template>
 	</windowContarl>
 </template>
 <script>
@@ -85,7 +88,7 @@
 			})
 		},
 		computed: {
-			backgroundSet(){
+			backgroundSet() {
 				console.log('=================');
 				return this.$store.state.style.background;
 			}
@@ -101,7 +104,7 @@
 			close() {
 				this.bus.$emit('destroy')
 			},
-			backgroundSetting(e){
+			backgroundSetting(e) {
 				// console.log(e.target.value);
 			}
 		},
@@ -216,32 +219,46 @@
 				padding-top: 35px;
 				flex: 1;
 				background-color: #fff;
-				> div {
-					padding: 20px;
-				}
-				.title {
-					font-size: 30px;
-					font-weight: 500;
-					margin-bottom: 20px;
-				}
-				.item {
-					margin-top: 30px;
-					.item-title {
-						margin-bottom: 10px;
-						font-size: 20px;
+
+				>div {
+					padding: 20px 0 0 20px;
+					display: flex;
+					flex-direction: column;
+					height: 100%;
+
+					.title {
+						font-size: 30px;
+						font-weight: 500;
+						margin-bottom: 20px;
 					}
-					&.background-setting {
-						select {
-							width: 280px;
-							height: 32px;
-							padding-left: 10px;
-							border: 2px solid #999;
-							&:hover {
-								border-color: #666;
+				}
+
+				.content {
+					overflow-y: auto;
+
+					.item {
+						margin-top: 30px;
+
+						.item-title {
+							margin-bottom: 10px;
+							font-size: 20px;
+						}
+
+						&.background-setting {
+							select {
+								width: 280px;
+								height: 32px;
+								padding-left: 10px;
+								border: 2px solid #999;
+
+								&:hover {
+									border-color: #666;
+								}
 							}
 						}
 					}
 				}
+
 			}
 		}
 
@@ -250,11 +267,13 @@
 				position: relative;
 				width: 320px;
 				height: 190px;
+
 				.exampleBG {
 					height: 180px;
 					width: 100%;
 					position: relative;
-					.exampleStartMenu{
+
+					.exampleStartMenu {
 						position: absolute;
 						left: 0;
 						bottom: 0;
@@ -267,7 +286,8 @@
 						align-items: center;
 					}
 				}
-				.exampleContarl{
+
+				.exampleContarl {
 					width: 100%;
 					height: 10px;
 					background-color: #040404;
