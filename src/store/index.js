@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import defaultStyle from '@/config/explorer'
+// import defaultStyle from '@/config/explorer'
 
 import time from '@/store/modules/time'
 import network from '@/store/modules/network'
+import { styleConfig,updateStyleConfig } from '@/config/style';
 
 Vue.use(Vuex)
-const config = localStorage.getItem('config') || defaultStyle;
 
 time.update.callback = function (time) {
 	store.commit('updateTime', time)
@@ -19,7 +19,7 @@ network.update.callback = function (status) {
 const store = new Vuex.Store({
 	state: {
 		style: {
-			...config
+			...styleConfig
 		},
 		taskIcon: [{
 			name: 'network',
@@ -53,6 +53,12 @@ const store = new Vuex.Store({
 		updateNetwork(state, status) {
 			const network = state.taskIcon.find(item => item.name == 'network');
 			network.status = status == true ? 1 : 2;
+		},
+		setStyle(state ,obj){
+			const key = obj.key;
+			const value = obj.value;
+			state.style[key] = value;
+			updateStyleConfig(state.style);
 		}
 	}
 })

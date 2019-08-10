@@ -45,7 +45,7 @@
 								</div>
 								<div class="item background-setting">
 									<div class="item-title">背景</div>
-									<select name="" id="" @change='backgroundSetting' v-model='backgroundSet'>
+									<select name="" id="" @change='backgroundTypeChange' v-model='backgroundType'>
 										<option value="1">图片</option>
 										<option value="2">纯色</option>
 										<!-- <option value="">幻灯片放映</option> -->
@@ -78,20 +78,21 @@
 				}, {
 					flot: 'color',
 					text: '颜色',
-				}, ]
+				}, ],
+				backgroundType: null,
 			}
 		},
 		created() {
 			this.bus.$once('pageChange', page => {
 				console.log('systemSetting pageChange: ', page);
 				this.page = page;
-			})
+			});
+			this.backgroundType = this.$store.state.style.backgroundType;
 		},
 		computed: {
-			backgroundSet() {
-				console.log('=================');
-				return this.$store.state.style.background;
-			}
+			// backgroundStateSet() {
+			// 	return this.$store.state.style.backgroundType;
+			// }
 		},
 		methods: {
 			togglePage(e) {
@@ -104,8 +105,14 @@
 			close() {
 				this.bus.$emit('destroy')
 			},
-			backgroundSetting(e) {
-				// console.log(e.target.value);
+			backgroundTypeChange(e) {
+				const type = +e.target.value;
+				console.log(type);
+				this.$store.commit('setStyle', {
+					key: 'backgroundType',
+					value: type
+				});
+
 			}
 		},
 		components: {
