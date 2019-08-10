@@ -52,7 +52,7 @@
 			openIndividuation() {
 				hideAllModule();
 				import('./application/common/app.bus').then(bus => {
-					bus.default.systemSettingApp.show('backgrounp')
+					bus.default.systemSettingApp.show('background')
 				})
 			}
 		}

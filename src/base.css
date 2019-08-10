@@ -136,6 +136,10 @@ textarea {
 	font-size: 100%;
 	/* 使得表单元素在 ie 下能继承字体大小 */
 }
+select {
+	/* appearance:none;	清除下拉三角形样式 */
+	outline: none;	/* 清除焦点颜色框 */
+}
 
 /* 重置表格元素 */
 table {

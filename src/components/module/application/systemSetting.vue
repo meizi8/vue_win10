@@ -32,8 +32,24 @@
 
 					</div>
 					<div class="setting-rigth">
-						<div class="backgrounp" v-show="page=='backgrounp'">
-							背景页面
+						<div class="background" v-show="page=='background'">
+							<div class="title">背景</div>
+							<div class="example">
+								<div class="exampleBG" style="background-color:#4c4a48;">
+									<div class="exampleStartMenu">
+										<div>开始菜单(写不动了)</div>
+									</div>
+								</div>
+								<div class="exampleContarl"></div>
+							</div>
+							<div class="item background-setting">
+								<div class="item-title">背景</div>
+								<select name="" id="" @change='backgroundSetting' v-model='backgroundSet'>
+									<option value="1">图片</option>
+									<option value="2">纯色</option>
+									<!-- <option value="">幻灯片放映</option> -->
+								</select>
+							</div>
 						</div>
 						<div class="color" v-show="page=='color'">
 							颜色页面
@@ -54,7 +70,7 @@
 			return {
 				page: '',
 				menuList: [{
-					flot: 'backgrounp',
+					flot: 'background',
 					text: '背景',
 				}, {
 					flot: 'color',
@@ -68,6 +84,12 @@
 				this.page = page;
 			})
 		},
+		computed: {
+			backgroundSet(){
+				console.log('=================');
+				return this.$store.state.style.background;
+			}
+		},
 		methods: {
 			togglePage(e) {
 				this.page = e;
@@ -78,6 +100,9 @@
 
 			close() {
 				this.bus.$emit('destroy')
+			},
+			backgroundSetting(e){
+				// console.log(e.target.value);
 			}
 		},
 		components: {
@@ -191,9 +216,64 @@
 				padding-top: 35px;
 				flex: 1;
 				background-color: #fff;
+				> div {
+					padding: 20px;
+				}
+				.title {
+					font-size: 30px;
+					font-weight: 500;
+					margin-bottom: 20px;
+				}
+				.item {
+					margin-top: 30px;
+					.item-title {
+						margin-bottom: 10px;
+						font-size: 20px;
+					}
+					&.background-setting {
+						select {
+							width: 280px;
+							height: 32px;
+							padding-left: 10px;
+							border: 2px solid #999;
+							&:hover {
+								border-color: #666;
+							}
+						}
+					}
+				}
 			}
 		}
 
+		.background {
+			.example {
+				position: relative;
+				width: 320px;
+				height: 190px;
+				.exampleBG {
+					height: 180px;
+					width: 100%;
+					position: relative;
+					.exampleStartMenu{
+						position: absolute;
+						left: 0;
+						bottom: 0;
+						width: 150px;
+						height: 120px;
+						background-color: #0c0b0b;
+						color: #fff;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+				.exampleContarl{
+					width: 100%;
+					height: 10px;
+					background-color: #040404;
+				}
+			}
+		}
 
 	}
 

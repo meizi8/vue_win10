@@ -1,5 +1,6 @@
 import Vue from "vue";
-import systemSetting from '../systemSetting.vue'
+import systemSetting from '../systemSetting.vue';
+import store from '@/store/index';
 
 const desktop = function () {
 	return document.getElementById('wallpaper');
@@ -28,6 +29,7 @@ systemSettingApp.prototype = {
 					bus: this.bus,
 				}
 			}.bind(this),
+			store
 		}).$mount();
 		desktop().appendChild(this.vm.$el);
 	},
