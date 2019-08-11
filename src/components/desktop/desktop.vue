@@ -1,5 +1,5 @@
 <template>
-	<div id="wallpaper" class="wallpaper" :style="`background-image: url('${wallpaperSrc}')`"
+	<div id="wallpaper" class="wallpaper" :style="backgroundStyle"
 		@contextmenu="showDesktopMenu($event)" @click='desktopClick'>
 		<!-- 桌面右键菜单 -->
 		<desktopMenu v-show="isShowDesktopMenu" :site="desktopMenuSite"></desktopMenu>
@@ -22,10 +22,20 @@
 			this.InitBus();
 		},
 		computed: {
-			wallpaperSrc() {
-				return this.$store.state.style.wallpaper ?
-					this.$store.state.style.wallpaper :
-					require("static/img/wallpaper.jpg");
+			backgroundStyle(){
+				let style
+				switch (this.$store.state.style.backgroundType) {
+					case 1:	//图片
+						style = `background-image: url('${this.$store.state.style.backgroundImg}');`;
+						break;
+					case 2:	//纯色
+						style = `background-color: ${this.$store.state.style.backgroundColor};`;
+						break;
+
+					default:
+						break;
+				}
+				return style;
 			}
 		},
 		methods: {
