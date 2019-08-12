@@ -51,7 +51,17 @@
 										<!-- <option value="">幻灯片放映</option> -->
 									</select>
 								</div>
+								<div class="item" v-if="backgroundType==1">
+									<div class="item-title">选择图片</div>
+									<input type="file">
+								</div>
 
+								<div class="item backgroundColor-setting"  v-if="backgroundType==2">
+									<div class="item-title">选择你的颜色</div>
+									<div class="color-box">
+										<div v-for="(item,index) in backgroundColorList" :key="index" :style="'background-color:'+ item + ';'" :class="item==userSetBackgroundColor?'active':''" @click='backgroundColorChange(item)'></div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="color" v-show="page=='color'">
@@ -80,6 +90,7 @@
 					text: '颜色',
 				}, ],
 				backgroundType: null,
+				backgroundColorList: ['#ff8c00','#e81123','#d13438','#c30052','#bf0077','#9a0089','#881798','#744da9','#10893e','#107c10','#018574','#2d7d9a','#0063b1','#6b69d6','#8e8cd8','#8764b8','#038387','#486860','#525e54','#7e735f','#4c4a48','#515c6b','#4a5459','#000000'],
 			}
 		},
 		created() {
@@ -90,9 +101,9 @@
 			this.backgroundType = this.$store.state.style.backgroundType;
 		},
 		computed: {
-			// backgroundStateSet() {
-			// 	return this.$store.state.style.backgroundType;
-			// }
+			userSetBackgroundColor() {
+				return this.$store.state.style.backgroundColor;
+			}
 		},
 		methods: {
 			togglePage(e) {
@@ -113,6 +124,12 @@
 					value: type
 				});
 
+			},
+			backgroundColorChange(color){
+				this.$store.commit('setStyle', {
+					key: 'backgroundColor',
+					value: color
+				});
 			}
 		},
 		components: {
@@ -244,11 +261,11 @@
 					overflow-y: auto;
 
 					.item {
-						margin-top: 30px;
+						margin-top: 40px;
 
 						.item-title {
 							margin-bottom: 10px;
-							font-size: 20px;
+							font-size: 16px;
 						}
 
 						&.background-setting {
@@ -260,6 +277,34 @@
 
 								&:hover {
 									border-color: #666;
+								}
+							}
+						}
+						&.backgroundColor-setting {
+							.color-box {
+								width: 346px;
+								div {
+									float: left;
+									width: 40px;
+									height: 40px;
+									margin-right: 2px;
+									margin-bottom: 2px;
+									&.active {
+										border: 2px solid #000;
+										position: relative;
+										&::after {
+											content: '√';
+											position: absolute;
+											width: 20px;
+											height: 20px;
+											line-height: 20px;
+											top: 0;
+											right: 0;
+											background-color: #000;
+											color: #fff;
+											text-align: center;
+										}
+									}
 								}
 							}
 						}
