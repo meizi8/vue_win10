@@ -36,7 +36,7 @@
 							<div class="title">背景</div>
 							<div class="content">
 								<div class="example">
-									<div class="exampleBG" style="background-color:#4c4a48;">
+									<div class="exampleBG" :style="backgroundStyle">
 										<div class="exampleStartMenu">
 											<div>开始菜单(写不动了)</div>
 										</div>
@@ -103,6 +103,13 @@
 		computed: {
 			userSetBackgroundColor() {
 				return this.$store.state.style.backgroundColor;
+			},
+			backgroundStyle(){
+				if(this.backgroundType == 1){
+					return
+				} else {
+					return `background-color: ${this.userSetBackgroundColor};`
+				}
 			}
 		},
 		methods: {
