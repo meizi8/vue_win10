@@ -8,6 +8,7 @@
 
 <script>
 	import { desktopMenuModuleBus,hideAllModule } from "../module/module.bus";
+	import API from "../../http/api";
 	export default {
 		data() {
 			return {
@@ -20,6 +21,11 @@
 		props: {},
 		created() {
 			this.InitBus();
+			this.$axios.get(API.test).then(res=>{
+				console.log(res);
+			}).catch(err=>{
+				console.log(err);
+			})
 		},
 		computed: {
 			backgroundStyle(){

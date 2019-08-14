@@ -2,8 +2,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+
 import './base.css'
 import './assets/iconfont/iconfont.css'
+import './http/axios'
 
 import './mainJs/directive';
 Vue.use(require('vue-moment'));
