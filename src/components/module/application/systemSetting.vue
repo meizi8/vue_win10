@@ -53,7 +53,7 @@
 								</div>
 								<div class="item" v-if="backgroundType==1">
 									<div class="item-title">选择图片</div>
-									<input type="file">
+									<input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" @change="photoUpload">
 								</div>
 
 								<div class="item backgroundColor-setting"  v-if="backgroundType==2">
@@ -78,6 +78,7 @@
 		hideAllModule
 	} from '../module.bus.js'
 	import windowContarl from './common/window-contarl';
+	import api from 'http/api.js';
 	export default {
 		data() {
 			return {
@@ -99,6 +100,7 @@
 				this.page = page;
 			});
 			this.backgroundType = this.$store.state.style.backgroundType;
+	console.log(api);
 		},
 		computed: {
 			userSetBackgroundColor() {
@@ -137,6 +139,14 @@
 					key: 'backgroundColor',
 					value: color
 				});
+			},
+			photoUpload(e){
+				const file = e.target.files[0];
+				const formData = new FormData();
+				formData.append('file', file);
+				this.$axios.post(api.photoUpload,formData).then(res=>{
+					console.log(res);
+				})
 			}
 		},
 		components: {

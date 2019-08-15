@@ -26,6 +26,8 @@ module.exports = {
 		alias: {
 			'@': resolve('src'),
 			'static': resolve('static'),
+			'http': resolve('src/http'),
+			'tool': resolve('src/tool'),
 		}
 	},
 	module: {
