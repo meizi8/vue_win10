@@ -106,9 +106,12 @@
 			userSetBackgroundColor() {
 				return this.$store.state.style.backgroundColor;
 			},
+			userSetBackgroundImg() {
+				return this.$store.state.style.backgroundImg;
+			},
 			backgroundStyle(){
-				if(this.backgroundType == 1){
-					return
+				if(this.$store.state.style.backgroundType == 1){
+					return `background: ${this.userSetBackgroundColor} url('${this.userSetBackgroundImg}') center center/cover no-repeat;`
 				} else {
 					return `background-color: ${this.userSetBackgroundColor};`
 				}
@@ -144,8 +147,19 @@
 				const file = e.target.files[0];
 				const formData = new FormData();
 				formData.append('file', file);
-				this.$axios.post(api.photoUpload,formData).then(res=>{
-					console.log(res);
+				this.$axios.post(api.photoUpload,formData,{
+					onUploadProgress: progressEvent => {
+						let complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
+						console.log(complete);	//上传文件进度
+					}
+				}).then(res=>{
+					if(res.data.code == 0){
+						const url = api.baseUrl + res.data.data.url;
+						this.$store.commit('setStyle', {
+							key: 'backgroundImg',
+							value: url
+						});
+					}
 				})
 			}
 		},
