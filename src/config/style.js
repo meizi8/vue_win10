@@ -5,9 +5,8 @@ const defaultStyle = {
 	wallpaper: '',
 	backgroundType: 1, //桌面背景 1.图片 2.纯色 3.幻灯片,
 	backgroundColor: '#4a5459',	//默认背景颜色
-	backgroundImg: require("static/img/wallpaper.jpg"),	//默认桌面图片
+	backgroundImg: [require("static/img/wallpaper.jpg")],	//默认桌面图片
 }
-console.log(defaultStyle.backgroundImg);
 
 
 const localStyle = localStorage.getItem('styleConfig');

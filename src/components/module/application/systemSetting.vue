@@ -51,8 +51,13 @@
 										<!-- <option value="">幻灯片放映</option> -->
 									</select>
 								</div>
-								<div class="item" v-if="backgroundType==1">
+								<div class="item selectImg" v-if="backgroundType==1">
 									<div class="item-title">选择图片</div>
+									<div class="historyImg clearfix">
+										<div v-for="(item,index) in userSetBackgroundImg" :key="index" @click="toggleBackgroundImg(index)">
+											<img :src="item" alt="">
+										</div>
+									</div>
 									<input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" @change="photoUpload">
 								</div>
 
@@ -111,7 +116,7 @@
 			},
 			backgroundStyle(){
 				if(this.$store.state.style.backgroundType == 1){
-					return `background: ${this.userSetBackgroundColor} url('${this.userSetBackgroundImg}') center center/cover no-repeat;`
+					return `background: ${this.userSetBackgroundColor} url('${this.$store.getters.getNewestBackgroundImg}') center center/cover no-repeat;`
 				} else {
 					return `background-color: ${this.userSetBackgroundColor};`
 				}
@@ -155,12 +160,13 @@
 				}).then(res=>{
 					if(res.data.code == 0){
 						const url = api.baseUrl + res.data.data.url;
-						this.$store.commit('setStyle', {
-							key: 'backgroundImg',
-							value: url
-						});
+						this.$store.commit('addBackgroundImg', url);
 					}
 				})
+			},
+			//切换了选中图片
+			toggleBackgroundImg(index){
+				this.$store.commit('toggleBackgroundImg', index);
 			}
 		},
 		components: {
@@ -335,6 +341,20 @@
 											color: #fff;
 											text-align: center;
 										}
+									}
+								}
+							}
+						}
+						&.selectImg {
+							.historyImg {
+								> div {
+									float: left;
+									width: 76px;
+									height: 76px;
+									margin-right: 3px;
+									img {
+										width: 100%;
+										height: 100%;
 									}
 								}
 							}

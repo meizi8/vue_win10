@@ -26,7 +26,7 @@
 				let style
 				switch (this.$store.state.style.backgroundType) {
 					case 1:	//图片
-						style = `background: ${this.$store.state.style.backgroundColor} url('${this.$store.state.style.backgroundImg}') center center/cover no-repeat;`;
+						style = `background: ${this.$store.state.style.backgroundColor} url('${this.$store.getters.getNewestBackgroundImg}') center center/cover no-repeat;`;
 						break;
 					case 2:	//纯色
 						style = `background-color: ${this.$store.state.style.backgroundColor};`;

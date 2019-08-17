@@ -4,7 +4,10 @@ import Vuex from 'vuex'
 
 import time from '@/store/modules/time'
 import network from '@/store/modules/network'
-import { styleConfig,updateStyleConfig } from '@/config/style';
+import {
+	styleConfig,
+	updateStyleConfig
+} from '@/config/style';
 
 Vue.use(Vuex)
 
@@ -46,6 +49,11 @@ const store = new Vuex.Store({
 		}], //任务栏小图标
 		curTime: time.value, //当前时间
 	},
+	getters: {
+		getNewestBackgroundImg: state => {
+			return state.style.backgroundImg[0];
+		}
+	},
 	mutations: {
 		updateTime(state, time) {
 			state.curTime = time;
@@ -54,11 +62,24 @@ const store = new Vuex.Store({
 			const network = state.taskIcon.find(item => item.name == 'network');
 			network.status = status == true ? 1 : 2;
 		},
-		setStyle(state ,obj){
+		setStyle(state, obj) {
 			const key = obj.key;
 			const value = obj.value;
 			state.style[key] = value;
 			updateStyleConfig(state.style);
+		},
+		addBackgroundImg(state, addr) {
+			const backgroundImg = state.style.backgroundImg;
+			if (backgroundImg.length >= 5) { //最大存储5张
+				backgroundImg.pop();
+			}
+			backgroundImg.unshift(addr);
+			updateStyleConfig(state.style);
+		},
+		//切换了背景图片
+		toggleBackgroundImg(state, index){
+			const backgroundImg = state.style.backgroundImg;
+			backgroundImg.unshift(backgroundImg.splice(index,1));
 		}
 	}
 })
