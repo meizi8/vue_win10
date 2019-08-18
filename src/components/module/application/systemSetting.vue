@@ -55,13 +55,25 @@
 									<div class="item-title">选择图片</div>
 									<div class="historyImg clearfix">
 										<div v-for="(item,index) in userSetBackgroundImg" :key="index" @click="toggleBackgroundImg(index)">
-											<img :src="item" alt="">
+											<div :style="'background:url('+ item +') center center/cover no-repeat;height:100%;'"></div>
 										</div>
 									</div>
-									<input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" @change="photoUpload">
+									<label class="selectImgBtn">
+										浏览
+										<input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" @change="photoUpload" style="display:none;">
+									</label>
 								</div>
-
-								<div class="item backgroundColor-setting"  v-if="backgroundType==2">
+								<div class="item IntegratingDegree" v-if="backgroundType==1">
+									<div class="item-title">选择契合度</div>
+									<select name="" id="" @change='setIntegratingDegree' v-model='integratingDegree'>
+										<option value="1">填充</option>
+										<option value="2">适应</option>
+										<option value="3">拉升</option>
+										<option value="4">平铺</option>
+										<option value="5">居中</option>
+									</select>
+								</div>
+								<div class="item backgroundColor-setting">
 									<div class="item-title">选择你的颜色</div>
 									<div class="color-box">
 										<div v-for="(item,index) in backgroundColorList" :key="index" :style="'background-color:'+ item + ';'" :class="item==userSetBackgroundColor?'active':''" @click='backgroundColorChange(item)'></div>
@@ -96,6 +108,7 @@
 					text: '颜色',
 				}, ],
 				backgroundType: null,
+				integratingDegree: null,
 				backgroundColorList: ['#ff8c00','#e81123','#d13438','#c30052','#bf0077','#9a0089','#881798','#744da9','#10893e','#107c10','#018574','#2d7d9a','#0063b1','#6b69d6','#8e8cd8','#8764b8','#038387','#486860','#525e54','#7e735f','#4c4a48','#515c6b','#4a5459','#000000'],
 			}
 		},
@@ -105,7 +118,7 @@
 				this.page = page;
 			});
 			this.backgroundType = this.$store.state.style.backgroundType;
-	console.log(api);
+			this.integratingDegree = this.$store.state.style.integratingDegree;
 		},
 		computed: {
 			userSetBackgroundColor() {
@@ -135,12 +148,10 @@
 			},
 			backgroundTypeChange(e) {
 				const type = +e.target.value;
-				console.log(type);
 				this.$store.commit('setStyle', {
 					key: 'backgroundType',
 					value: type
 				});
-
 			},
 			backgroundColorChange(color){
 				this.$store.commit('setStyle', {
@@ -167,6 +178,14 @@
 			//切换了选中图片
 			toggleBackgroundImg(index){
 				this.$store.commit('toggleBackgroundImg', index);
+			},
+			//选择契合度
+			setIntegratingDegree(e){
+				const type = +e.target.value;
+				this.$store.commit('setStyle', {
+					key: 'integratingDegree',
+					value: type
+				});
 			}
 		},
 		components: {
@@ -296,7 +315,7 @@
 
 				.content {
 					overflow-y: auto;
-
+					padding-bottom: 40px;
 					.item {
 						margin-top: 40px;
 
@@ -305,7 +324,8 @@
 							font-size: 16px;
 						}
 
-						&.background-setting {
+						&.background-setting,
+						&.IntegratingDegree {
 							select {
 								width: 280px;
 								height: 32px;
@@ -352,10 +372,20 @@
 									width: 76px;
 									height: 76px;
 									margin-right: 3px;
-									img {
-										width: 100%;
-										height: 100%;
-									}
+								}
+							}
+							.selectImgBtn {
+								margin-top: 5px;
+								display: inline-block;
+								text-align: center;
+								width: 90px;
+								height: 30px;
+								line-height: 30px;
+								background-color: #ccc;
+								box-sizing: border-box;
+								&:hover {
+									line-height: 26px;
+									border: 2px solid #7a7a7a;
 								}
 							}
 						}

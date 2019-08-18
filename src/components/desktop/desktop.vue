@@ -26,6 +26,12 @@
 				let style
 				switch (this.$store.state.style.backgroundType) {
 					case 1:	//图片
+						// 1.填充cover
+						// 2.适应 center center/contain  no-repeat
+						// 3.拉升 center center/100% 100%  no-repeat
+						// 4.平铺 contain repeat
+						// 5.居中
+						console.log(this.$store.state.style.integratingDegree);
 						style = `background: ${this.$store.state.style.backgroundColor} url('${this.$store.getters.getNewestBackgroundImg}') center center/cover no-repeat;`;
 						break;
 					case 2:	//纯色

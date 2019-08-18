@@ -11,9 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '',
     proxyTable: {
+		// '/winapi': {
+		// 	target: 'http://localhost:3001',
+		// 	pathRewrite: {'^/winapi' : ''}
+		// },
 		'/winapi': {
-			target: 'http://localhost:3001',
-			pathRewrite: {'^/winapi' : ''}
+			target: 'https://siman.fun',
+			changeOrigin: true,
 		}
 	},
 
