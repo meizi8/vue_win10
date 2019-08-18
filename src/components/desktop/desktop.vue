@@ -26,13 +26,27 @@
 				let style
 				switch (this.$store.state.style.backgroundType) {
 					case 1:	//图片
-						// 1.填充cover
+						const integratingDegree = this.$store.state.style.integratingDegree;
+						style = `background-color: ${this.$store.state.style.backgroundColor};background-image: url('${this.$store.getters.getNewestBackgroundImg}');`;
+						// 1.填充 cover
 						// 2.适应 center center/contain  no-repeat
 						// 3.拉升 center center/100% 100%  no-repeat
 						// 4.平铺 contain repeat
-						// 5.居中
-						console.log(this.$store.state.style.integratingDegree);
-						style = `background: ${this.$store.state.style.backgroundColor} url('${this.$store.getters.getNewestBackgroundImg}') center center/cover no-repeat;`;
+						if(integratingDegree === 1){
+							style += 'background-position: center center;';
+							style += 'background-size: cover;';
+							style += 'background-repeat: no-repeat;';
+						} else if(integratingDegree === 2){
+							style += 'background-position: center center;';
+							style += 'background-size: contain;';
+							style += 'background-repeat: no-repeat;';
+						} else if(integratingDegree === 3){
+							style += 'background-position: center center;';
+							style += 'background-size: 100% 100%;';
+							style += 'background-repeat: no-repeat;';
+						} else if(integratingDegree === 4){
+							style += 'background-size: contain;';
+						}
 						break;
 					case 2:	//纯色
 						style = `background-color: ${this.$store.state.style.backgroundColor};`;

@@ -70,7 +70,6 @@
 										<option value="2">适应</option>
 										<option value="3">拉升</option>
 										<option value="4">平铺</option>
-										<option value="5">居中</option>
 									</select>
 								</div>
 								<div class="item backgroundColor-setting">
@@ -128,11 +127,39 @@
 				return this.$store.state.style.backgroundImg;
 			},
 			backgroundStyle(){
-				if(this.$store.state.style.backgroundType == 1){
-					return `background: ${this.userSetBackgroundColor} url('${this.$store.getters.getNewestBackgroundImg}') center center/cover no-repeat;`
-				} else {
-					return `background-color: ${this.userSetBackgroundColor};`
+				let style
+				switch (this.$store.state.style.backgroundType) {
+					case 1:	//图片
+						const integratingDegree = this.$store.state.style.integratingDegree;
+						style = `background-color: ${this.$store.state.style.backgroundColor};background-image: url('${this.$store.getters.getNewestBackgroundImg}');`;
+						// 1.填充 cover
+						// 2.适应 center center/contain  no-repeat
+						// 3.拉升 center center/100% 100%  no-repeat
+						// 4.平铺 contain repeat
+						if(integratingDegree === 1){
+							style += 'background-position: center center;';
+							style += 'background-size: cover;';
+							style += 'background-repeat: no-repeat;';
+						} else if(integratingDegree === 2){
+							style += 'background-position: center center;';
+							style += 'background-size: contain;';
+							style += 'background-repeat: no-repeat;';
+						} else if(integratingDegree === 3){
+							style += 'background-position: center center;';
+							style += 'background-size: 100% 100%;';
+							style += 'background-repeat: no-repeat;';
+						} else if(integratingDegree === 4){
+							style += 'background-size: contain;';
+						}
+						break;
+					case 2:	//纯色
+						style = `background-color: ${this.$store.state.style.backgroundColor};`;
+						break;
+
+					default:
+						break;
 				}
+				return style;
 			}
 		},
 		methods: {
