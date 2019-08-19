@@ -190,20 +190,6 @@
 			}
 		}
 
-		.background-setting,
-		.IntegratingDegree {
-			select {
-				width: 280px;
-				height: 32px;
-				padding-left: 10px;
-				border: 2px solid #999;
-
-				&:hover {
-					border-color: #666;
-				}
-			}
-		}
-
 		.backgroundColor-setting {
 			.color-box {
 				width: 346px;

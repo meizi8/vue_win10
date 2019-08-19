@@ -38,10 +38,7 @@
 							<!-- 颜色页面 -->
 							未开发
 						</div>
-						<div class="color" v-show="page=='taskbar'">
-							任务栏
-							<taskbar></taskbar>
-						</div>
+						<taskbar class="taskbar" v-show="page=='taskbar'"></taskbar>
 					</div>
 				</div>
 			</div>
@@ -229,6 +226,16 @@
 						}
 					}
 				}
+				select {
+					width: 280px;
+					height: 32px;
+					padding-left: 10px;
+					border: 2px solid #999;
+
+					&:hover {
+						border-color: #666;
+				}
+			}
 
 			}
 		}
