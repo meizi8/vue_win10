@@ -1,5 +1,5 @@
 import Vue from "vue";
-import systemSetting from '../systemSetting.vue';
+import systemSetting from '../systemSetting/systemSetting.vue';
 import store from '@/store/index';
 
 const desktop = function () {
