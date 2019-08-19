@@ -62,8 +62,8 @@
 			showDesktopMenu(event) {
 				hideAllModule();
 				this.desktopMenuSite = {
-					clientX: event.clientX,
-					clientY: event.clientY,
+					clientX: event.layerX,
+					clientY: event.layerY,
 					clientWidth: event.srcElement.clientWidth,
 					clientHeight: event.srcElement.clientHeight
 				};
