@@ -11,14 +11,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '',
     proxyTable: {
-		// '/winapi': {
-		// 	target: 'http://localhost:3001',
-		// 	pathRewrite: {'^/winapi' : ''}
-		// },
 		'/winapi': {
-			target: 'https://siman.fun',
-			changeOrigin: true,
-		}
+			target: 'http://localhost:3001',
+			pathRewrite: {'^/winapi' : ''}
+		},
+		// '/winapi': {
+		// 	target: 'https://siman.fun',
+		// 	changeOrigin: true,
+		// }
 	},
 
     // Various Dev Server settings

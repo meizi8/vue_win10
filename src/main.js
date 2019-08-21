@@ -1,3 +1,4 @@
+console.log('版本:' + process.env.VERSION);
 import Vue from 'vue'
 import App from './App'
 import router from './router'

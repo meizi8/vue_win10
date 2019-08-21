@@ -79,7 +79,8 @@ const store = new Vuex.Store({
 		//切换了背景图片
 		toggleBackgroundImg(state, index){
 			const backgroundImg = state.style.backgroundImg;
-			backgroundImg.unshift(backgroundImg.splice(index,1));
+			backgroundImg.unshift(backgroundImg.splice(index,1)[0]);
+			updateStyleConfig(state.style);
 		}
 	}
 })
