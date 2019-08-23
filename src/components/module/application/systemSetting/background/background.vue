@@ -24,11 +24,16 @@
 						<div :style="'background:url('+ item +') center center/cover no-repeat;height:100%;'"></div>
 					</div>
 				</div>
-				<label class="selectImgBtn">
-					浏览
-					<input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" @change="photoUpload"
-						style="display:none;">
-				</label>
+				<div class="selectImgBtn">
+					<label>
+						浏览
+						<input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" @change="photoUpload"
+							style="display:none;">
+					</label>
+					<span class="progress" v-if="progress">
+						<span class="current" :style="`background-color: ${this.$store.state.style.backgroundColor};width: ${this.progress};`"></span>
+					</span>
+				</div>
 			</div>
 			<div class="item IntegratingDegree" v-if="backgroundType==1">
 				<div class="item-title">选择契合度</div>
@@ -57,6 +62,7 @@
 			return {
 				backgroundType: null,
 				integratingDegree: null,
+				progress: null,	//文件上传进度
 				backgroundColorList: ['#ff8c00', '#e81123', '#d13438', '#c30052', '#bf0077', '#9a0089', '#881798',
 					'#744da9', '#10893e', '#107c10', '#018574', '#2d7d9a', '#0063b1', '#6b69d6', '#8e8cd8', '#8764b8',
 					'#038387', '#486860', '#525e54', '#7e735f', '#4c4a48', '#515c6b', '#4a5459', '#000000'
@@ -129,16 +135,18 @@
 				const file = e.target.files[0];
 				const formData = new FormData();
 				formData.append('file', file);
+				this.progress = '0%';
 				this.$axios.post(api.photoUpload, formData, {
 					onUploadProgress: progressEvent => {
-						let complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
-						console.log(complete); //上传文件进度
+						this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%';	//更新文件上传进度
 					}
 				}).then(res => {
 					if (res.data.code == 0) {
 						const url = api.baseUrl + res.data.data.url;
 						this.$store.commit('addBackgroundImg', url);
 					}
+				}).finally(()=>{
+					this.progress = null;
 				})
 			},
 			//切换了选中图片
@@ -231,20 +239,43 @@
 					margin-right: 3px;
 				}
 			}
-
 			.selectImgBtn {
+				position: relative;
 				margin-top: 5px;
-				display: inline-block;
-				text-align: center;
-				width: 90px;
-				height: 30px;
-				line-height: 30px;
-				background-color: #ccc;
-				box-sizing: border-box;
+				label {
+					display: inline-block;
+					text-align: center;
+					width: 90px;
+					height: 30px;
+					line-height: 30px;
+					background-color: #ccc;
+					box-sizing: border-box;
 
-				&:hover {
-					line-height: 26px;
-					border: 2px solid #7a7a7a;
+					&:hover {
+						// line-height: 26px;
+						// border: 2px solid #7a7a7a;
+						box-shadow: inset 0 0 0px 2px #7a7a7a;
+					}
+				}
+				.progress {
+					position: absolute;
+					top: 50%;
+					transform: translateY(-50%);
+					margin-left: 50px;
+					width: 100px;
+					height: 3px;
+					line-height: 3px;
+					border-radius: 10px;
+					text-align: center;
+					color: #fff;
+					background-color: #ccc;
+					.current {
+						position: absolute;
+						overflow: hidden;
+						left: 0;
+						height: 100%;
+						border-radius: 10px;
+					}
 				}
 			}
 		}
