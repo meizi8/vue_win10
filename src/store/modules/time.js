@@ -1,13 +1,17 @@
-const update = {
-	callback: function () {}
-};
-function updateTime() {
-	update.callback(new Date());
-	setTimeout(updateTime, 1000);
+const state = {
+	curTime: new Date(),
 }
-updateTime();
-
+const mutations = {
+	updateTime(state, time) {
+		state.curTime = time;
+	},
+}
+!function updateTime() {
+	state.curTime = new Date();
+	setTimeout(updateTime, 1000);
+}()
 export default {
-	value: new Date(),
-	update
-};
+	namespaced: true,
+	state,
+	mutations,
+}

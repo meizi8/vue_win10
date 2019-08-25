@@ -43,6 +43,7 @@
 </template>
 
 <script>
+	import { mapState } from "vuex";
 	export default {
 		data() {
 			return {
@@ -56,9 +57,9 @@
 			}
 		},
 		computed: {
-			curTime() { //当前时间
-				return this.$store.state.curTime;
-			}
+			...mapState('time',{
+				curTime: state=>state.curTime,
+			}),
 		},
 		watch: {
 			selectMonth(value) {

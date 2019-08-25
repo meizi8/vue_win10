@@ -23,11 +23,11 @@
 		},
 		computed: {
 			backgroundStyle(){
-				let style
+				let style;
 				switch (this.$store.state.style.backgroundType) {
 					case 1:	//图片
 						const integratingDegree = this.$store.state.style.integratingDegree;
-						style = `background-color: ${this.$store.state.style.backgroundColor};background-image: url('${this.$store.getters.getNewestBackgroundImg}');`;
+						style = `background-color: ${this.$store.state.style.backgroundColor};background-image: url('${this.$store.getters["style/getNewestBackgroundImg"]}');`;
 						// 1.填充 cover
 						// 2.适应 center center/contain  no-repeat
 						// 3.拉升 center center/100% 100%  no-repeat

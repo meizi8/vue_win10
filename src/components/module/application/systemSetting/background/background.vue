@@ -48,7 +48,7 @@
 				<div class="item-title">选择你的颜色</div>
 				<div class="color-box">
 					<div v-for="(item,index) in backgroundColorList" :key="index"
-						:style="'background-color:'+ item + ';'" :class="item==userSetBackgroundColor?'active':''"
+						:style="'background-color:'+ item + ';'" :class="item==userSetBackgroundColor&&'active'"
 						@click='backgroundColorChange(item)'></div>
 				</div>
 			</div>
@@ -86,7 +86,7 @@
 					case 1: //图片
 						const integratingDegree = this.$store.state.style.integratingDegree;
 						style =
-							`background-color: ${this.$store.state.style.backgroundColor};background-image: url('${this.$store.getters.getNewestBackgroundImg}');`;
+							`background-color: ${this.$store.state.style.backgroundColor};background-image: url('${this.$store.getters['style/getNewestBackgroundImg']}');`;
 						// 1.填充 cover
 						// 2.适应 center center/contain  no-repeat
 						// 3.拉升 center center/100% 100%  no-repeat
@@ -120,13 +120,13 @@
 		methods: {
 			backgroundTypeChange(e) {
 				const type = +e.target.value;
-				this.$store.commit('setStyle', {
+				this.$store.commit('style/setStyle', {
 					key: 'backgroundType',
 					value: type
 				});
 			},
 			backgroundColorChange(color) {
-				this.$store.commit('setStyle', {
+				this.$store.commit('style/setStyle', {
 					key: 'backgroundColor',
 					value: color
 				});
@@ -143,7 +143,7 @@
 				}).then(res => {
 					if (res.data.code == 0) {
 						const url = api.baseUrl + res.data.data.url;
-						this.$store.commit('addBackgroundImg', url);
+						this.$store.commit('style/addBackgroundImg', url);
 					}
 				}).finally(()=>{
 					this.progress = null;
@@ -151,12 +151,12 @@
 			},
 			//切换了选中图片
 			toggleBackgroundImg(index) {
-				this.$store.commit('toggleBackgroundImg', index);
+				this.$store.commit('style/toggleBackgroundImg', index);
 			},
 			//选择契合度
 			setIntegratingDegree(e) {
 				const type = +e.target.value;
-				this.$store.commit('setStyle', {
+				this.$store.commit('style/setStyle', {
 					key: 'integratingDegree',
 					value: type
 				});

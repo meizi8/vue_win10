@@ -44,7 +44,7 @@
 				];
 			},
 			getCurTime() {
-				return this.$store.state.curTime;
+				return this.$store.state.time.curTime;
 			}
 		},
 		created() {

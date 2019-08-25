@@ -30,12 +30,11 @@
 		},
 		created() {
 			this.layout = this.$store.state.style.layout; //任务栏位置 1.bottom 2.left 3.top 4.right
-			console.log(this.layout);
 		},
 		methods: {
 			setLayout(e) {
 				const type = +e.target.value;
-				this.$store.commit('setStyle', {
+				this.$store.commit('style/setStyle', {
 					key: 'layout',
 					value: type
 				});

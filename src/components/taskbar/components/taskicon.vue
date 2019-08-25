@@ -18,6 +18,7 @@
 </template>
 
 <script>
+	import { mapState } from "vuex";
 	export default {
 		name: "taskicon",
 		data() {
@@ -25,9 +26,9 @@
 		},
 		created() {},
 		computed: {
-			iconList() {
-				return this.$store.state.taskIcon;
-			}
+			...mapState('taskIcon',{
+				iconList: state=>state.list
+			})
 		}
 	};
 
