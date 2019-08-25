@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import style from "./modules/style";
-import time from "./modules/time.js";
-import taskIcon from './modules/taskIcon'
+import time from "./modules/time";
+import taskIcon from './modules/taskIcon';
+import appTaskManage from "./modules/appTaskManage";
 Vue.use(Vuex)
 
 
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
 		style,
 		time,
 		taskIcon,
+		appTaskManage,
 	}
 })
 

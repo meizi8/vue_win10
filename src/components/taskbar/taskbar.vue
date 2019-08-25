@@ -4,7 +4,9 @@
 			<div class="win">
 				<i class="iconfont icon-windows"></i>
 			</div>
-			<div class="tasks"></div>
+			<div class="tasks">
+				<appTask></appTask>
+			</div>
 			<div class="taskicon">
 				<taskicon></taskicon>
 			</div>
@@ -28,6 +30,7 @@
 
 <script>
 	import { timeModuleBus,hideAllModule } from '../module/module.bus'
+	import appTask from "./components/appTask";
 	import taskicon from "./components/taskicon";
 	export default {
 		data() {
@@ -63,6 +66,7 @@
 			}
 		},
 		components: {
+			appTask,
 			taskicon,
 			timeModule: () => import('../module/timeModule')
 		}
