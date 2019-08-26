@@ -43,7 +43,7 @@ systemSettingApp.prototype = {
 			id: this.id,
 			appName: this.name,
 			iconfont: this.iconfont,	//是否字体图标
-			iconClass: this.iconClass,	//字体图标类名
+			iconClass: 'icon-setting',	//字体图标类名
 			show: true,	//显示在任务栏
 		})
 	},
