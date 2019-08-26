@@ -5,7 +5,7 @@
 			<li>排列方式</li>
 			<li>刷新</li>
 			<li>新建</li>
-			<li @click="openIndividuation"  @contextmenu.prevent.stop="openIndividuation">个性化</li>
+			<li @click="openIndividuation"  @contextmenu.prevent.stop="openIndividuation" class="iconfont icon-individuation">个性化</li>
 		</ul>
 	</div>
 </template>
@@ -80,14 +80,10 @@
 				overflow: hidden;
 
 				&:before {
-					content: '';
 					position: absolute;
 					left: 10px;
-					top: 50%;
 					width: 16px;
 					height: 16px;
-					margin-top: -8px;
-					background-color: #ff0;
 				}
 
 				&:hover {

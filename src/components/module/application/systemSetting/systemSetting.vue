@@ -24,7 +24,7 @@
 							<ul class="menu">
 								<li v-for="item in menuList" :key="item.flot" :class="page==item.flot?'active':''"
 									@click='togglePage(item.flot)'>
-									<i class="icon"></i>
+									<i class="iconfont" :class="item.iconClassName"></i>
 									<span>{{item.text}}</span>
 								</li>
 							</ul>
@@ -59,12 +59,15 @@
 				menuList: [{
 					flot: 'background',
 					text: '背景',
+					iconClassName:'icon-background'
 				}, {
 					flot: 'color',
 					text: '颜色',
+					iconClassName:'icon-color'
 				},{
 					flot: 'taskbar',
 					text: '任务栏',
+					iconClassName:'icon-taskbar'
 				}, ],
 			}
 		},
@@ -166,14 +169,15 @@
 								padding-left: 50px;
 							}
 
-							.icon {
+							.iconfont {
 								position: absolute;
 								left: 18px;
 								top: 50%;
 								transform: translateY(-50%);
-								background-color: yellow;
-								height: 20px;
-								width: 20px;
+								height: 16px;
+								width: 16px;
+								font-size: 16px;
+								line-height: 20px;
 							}
 
 							&:hover {
