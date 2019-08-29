@@ -1,12 +1,12 @@
 <template>
-	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;" v-show="isShow">
+	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;" :style="'z-index:'+zIndex+';'" v-show="isShow">
 		<template v-slot:default="slotProps">
 			<div id="systemSetting">
 				<div class="win-header" v-drag:target="slotProps.father">
 					<div class="win-title">设置</div>
 					<div class="win-control">
 						<div class="minimize">
-							<i class="iconfont icon-minimality" @click="isShow=false"></i>
+							<i class="iconfont icon-minimality" @click="minimality"></i>
 						</div>
 						<div class="windowed">
 							<i class="iconfont icon-windowed"></i></div>
@@ -70,6 +70,7 @@
 					text: '任务栏',
 					iconClassName:'icon-taskbar'
 				}, ],
+				zIndex: 99999,
 			}
 		},
 		created() {
@@ -80,6 +81,13 @@
 			this.bus.$on('toggle', () => {
 				this.isShow = !this.isShow;
 			});
+			this.bus.$on('show', (zIndex) => {
+				this.zIndex = zIndex;
+				this.isShow = true;
+			});
+			this.bus.$on('hide', () => {
+				this.isShow = false;
+			});
 		},
 
 		methods: {
@@ -89,10 +97,16 @@
 			rightClick() {
 				hideAllModule();
 			},
-
+			//关闭
 			close() {
+				this.bus.$emit('removeIndex');
 				this.bus.$emit('destroy')
 			},
+			//最小化
+			minimality(){
+				this.isShow = false;
+				this.bus.$emit('removeIndex');
+			}
 		},
 		components: {
 			windowContarl,

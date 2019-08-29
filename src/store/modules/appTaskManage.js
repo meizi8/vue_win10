@@ -23,12 +23,6 @@ export default {
 			if(removeIndex > -1){
 				state.allTasks.splice(removeIndex,1);
 			}
-		},
-		addZIndex(state, extend){
-			const task = state.allTasks.find(item => item.id === extend.id);
-			if(task){
-				task.zIndex = extend.zIndex;
-			}
 		}
 	},
 	actions: {

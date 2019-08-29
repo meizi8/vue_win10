@@ -13,9 +13,19 @@ const generateId = function () {
 	return Number(Math.random().toString().substr(3,length) + Date.now()).toString(36);
 }
 const zIndex = {
-	count: 1000,
+	count: 1000, //当前累计层级
+	topAppArr: [],	//当前顶级窗口app的id顺序
 	getIndex: function(){
 		return this.count++;
+	},
+	addTopApp: function (id) {
+		this.topAppArr.push(id);
+	},
+	removeTopId: function (id) {
+		this.topAppArr = this.topAppArr.filter(item=>item.indexOf(id)==-1);
+	},
+	getTopId: function () {
+		return this.topAppArr[this.topAppArr.length-1];
 	}
 }
 const systemSettingApp = function () {
@@ -30,9 +40,6 @@ const systemSettingApp = function () {
 }
 systemSettingApp.prototype = {
 	create: function () {
-		this.bus.$once('destroy', () => {
-			this.destroy();
-		});
 		const systemSettingCur = Vue.extend(systemSetting);
 		this.vm = new systemSettingCur({
 			data: function () {
@@ -44,6 +51,16 @@ systemSettingApp.prototype = {
 			store
 		}).$mount();
 		desktop().appendChild(this.vm.$el);
+
+
+		this.bus.$once('destroy', () => {
+			this.destroy();
+		});
+		this.bus.$on('removeIndex', () => {
+			zIndex.removeTopId(this.id);
+		});
+
+		zIndex.addTopApp(this.id);
 		store.dispatch('appTaskManage/addTask',{
 			id: this.id,
 			appName: this.name,
@@ -51,18 +68,26 @@ systemSettingApp.prototype = {
 			iconClass: 'icon-setting',	//字体图标类名
 			showTasks: true,	//显示在任务栏
 			zIndex: zIndex.getIndex(),
-			click: () => {
-				this.bus.$emit('toggle');
-				// store.commit('appTaskManage/addZIndex',{id:this.id,zIndex:zIndex.getIndex()});
+			click: () => {	//点击任务栏app触发
+				if(zIndex.getTopId() === this.id){
+					zIndex.removeTopId(this.id);
+					this.bus.$emit('hide');
+				} else {
+					zIndex.addTopApp(this.id);
+					this.bus.$emit('show',zIndex.getIndex());
+				}
 			}
 		})
 	},
 	show: function (option) {
-		if (!this.isCreate) {
+		if (this.isCreate) {
+			zIndex.addTopApp(this.id);
+			this.bus.$emit('show', zIndex.getIndex());
+		} else {
 			this.create();
 			this.isCreate = true;
+			this.bus.$emit('pageChange', option);
 		}
-		this.bus.$emit('pageChange', option);
 	},
 	hide: function () {
 
