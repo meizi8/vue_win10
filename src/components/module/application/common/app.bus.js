@@ -12,7 +12,12 @@ const createVue = function () {
 const generateId = function () {
 	return Number(Math.random().toString().substr(3,length) + Date.now()).toString(36);
 }
-
+const zIndex = {
+	count: 1000,
+	getIndex: function(){
+		return this.count++;
+	}
+}
 const systemSettingApp = function () {
 	this.id = generateId();
 	this.name = '设置';
@@ -44,7 +49,12 @@ systemSettingApp.prototype = {
 			appName: this.name,
 			iconfont: this.iconfont,	//是否字体图标
 			iconClass: 'icon-setting',	//字体图标类名
-			show: true,	//显示在任务栏
+			showTasks: true,	//显示在任务栏
+			zIndex: zIndex.getIndex(),
+			click: () => {
+				this.bus.$emit('toggle');
+				// store.commit('appTaskManage/addZIndex',{id:this.id,zIndex:zIndex.getIndex()});
+			}
 		})
 	},
 	show: function (option) {
@@ -53,6 +63,9 @@ systemSettingApp.prototype = {
 			this.isCreate = true;
 		}
 		this.bus.$emit('pageChange', option);
+	},
+	hide: function () {
+
 	},
 	destroy: function () {
 		store.dispatch('appTaskManage/removeTask',this.id);

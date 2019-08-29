@@ -1,5 +1,5 @@
 <template>
-	<div style="width:1022px;height:730px;left: 20px;top: 50px;" class="window-contorl" @click="contorlClick"
+	<div class="window-contorl" @click="contorlClick"
 		@contextmenu.prevent.stop="contorlClick" ref="move">
 		<div class="border-cursor">
 			<div class="right type1" v-scale.right></div>

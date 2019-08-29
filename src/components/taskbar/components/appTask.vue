@@ -1,6 +1,6 @@
 <template>
 	<div class="appTask">
-		<div v-for="item in appList" :key="item.id" class="appItem">
+		<div v-for="item in appList" :key="item.id" class="appItem" @click="item.click">
 			<div class="wrap">
 				<i v-if="item.iconfont" class="iconfont" :class="item.iconClass"></i>
 				<span>{{item.appName}}</span>

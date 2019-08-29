@@ -1,12 +1,12 @@
 <template>
-	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;min-height:320px;">
+	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;" v-show="isShow">
 		<template v-slot:default="slotProps">
 			<div id="systemSetting">
 				<div class="win-header" v-drag:target="slotProps.father">
 					<div class="win-title">设置</div>
 					<div class="win-control">
 						<div class="minimize">
-							<i class="iconfont icon-minimality"></i>
+							<i class="iconfont icon-minimality" @click="isShow=false"></i>
 						</div>
 						<div class="windowed">
 							<i class="iconfont icon-windowed"></i></div>
@@ -55,6 +55,7 @@
 	export default {
 		data() {
 			return {
+				isShow: true,
 				page: '',
 				menuList: [{
 					flot: 'background',
@@ -75,6 +76,9 @@
 			this.bus.$once('pageChange', page => {
 				console.log('systemSetting pageChange: ', page);
 				this.page = page;
+			});
+			this.bus.$on('toggle', () => {
+				this.isShow = !this.isShow;
 			});
 		},
 

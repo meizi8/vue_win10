@@ -7,7 +7,7 @@ export default {
 		getList(state){
 			const list = [];
 			state.allTasks.forEach(item => {
-				if(item.show){
+				if(item.showTasks){
 					list.push(item);
 				}
 			});
@@ -23,6 +23,12 @@ export default {
 			if(removeIndex > -1){
 				state.allTasks.splice(removeIndex,1);
 			}
+		},
+		addZIndex(state, extend){
+			const task = state.allTasks.find(item => item.id === extend.id);
+			if(task){
+				task.zIndex = extend.zIndex;
+			}
 		}
 	},
 	actions: {
@@ -31,6 +37,6 @@ export default {
 		},
 		removeTask({ commit },appId){
 			commit('removeTask',appId);
-		}
+		},
 	}
 }
