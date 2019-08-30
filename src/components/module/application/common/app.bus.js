@@ -94,7 +94,8 @@ systemSettingApp.prototype = {
 	},
 	destroy: function () {
 		store.dispatch('appTaskManage/removeTask',this.id);
-		this.vm.$el.parentNode.removeChild(this.vm.$el)
+		this.vm.$el.parentNode.removeChild(this.vm.$el);
+		this.bus.$destroy();	//彻底销毁实例方法
 		this.vm.$destroy();
 		this.isCreate = false;
 	},

@@ -74,7 +74,7 @@
 			}
 		},
 		created() {
-			this.bus.$once('pageChange', page => {
+			this.bus.$on('pageChange', page => {
 				console.log('systemSetting pageChange: ', page);
 				this.page = page;
 			});
