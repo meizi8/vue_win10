@@ -46,11 +46,15 @@
 			</div>
 			<div class="item backgroundColor-setting">
 				<div class="item-title">选择你的颜色</div>
-				<div class="color-box">
+				<div class="color-box clearfix">
 					<div v-for="(item,index) in backgroundColorList" :key="index"
 						:style="'background-color:'+ item + ';'" :class="item==userSetBackgroundColor&&'active'"
 						@click='backgroundColorChange(item)'></div>
 				</div>
+				<label>
+					自定义颜色
+					<input type="color" @change="customBackgroundColorChange" style="display:none;">
+				</label>
 			</div>
 		</div>
 	</div>
@@ -72,6 +76,9 @@
 		created() {
 			this.backgroundType = this.$store.state.style.backgroundType;
 			this.integratingDegree = this.$store.state.style.integratingDegree;
+			if(!this.backgroundColorList.includes(this.userSetBackgroundColor)){
+				this.backgroundColorList.push(this.userSetBackgroundColor);
+			}
 		},
 		computed: {
 			userSetBackgroundColor() {
@@ -124,6 +131,11 @@
 					key: 'backgroundType',
 					value: type
 				});
+			},
+			customBackgroundColorChange(e){
+				const color = e.srcElement.value;
+				this.backgroundColorList.push(color);
+				this.backgroundColorChange(color);
 			},
 			backgroundColorChange(color) {
 				this.$store.commit('style/setStyle', {
@@ -198,10 +210,24 @@
 			}
 		}
 
+		label {
+			display: inline-block;
+			text-align: center;
+			width: 90px;
+			height: 30px;
+			line-height: 30px;
+			background-color: #ccc;
+			box-sizing: border-box;
+
+			&:hover {
+				box-shadow: inset 0 0 0px 2px #7a7a7a;
+			}
+		}
+
 		.backgroundColor-setting {
 			.color-box {
 				width: 346px;
-
+				margin-bottom: 5px;
 				div {
 					float: left;
 					width: 40px;
@@ -242,21 +268,6 @@
 			.selectImgBtn {
 				position: relative;
 				margin-top: 5px;
-				label {
-					display: inline-block;
-					text-align: center;
-					width: 90px;
-					height: 30px;
-					line-height: 30px;
-					background-color: #ccc;
-					box-sizing: border-box;
-
-					&:hover {
-						// line-height: 26px;
-						// border: 2px solid #7a7a7a;
-						box-shadow: inset 0 0 0px 2px #7a7a7a;
-					}
-				}
 				.progress {
 					position: absolute;
 					top: 50%;
