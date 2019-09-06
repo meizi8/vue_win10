@@ -2,17 +2,12 @@ import Vue from "vue";
 import systemSetting from '../systemSetting/systemSetting.vue';
 import notepad from '../notepad/notepad.vue';
 import store from '@/store/index';
+import {generateId,createVue} from '@/mainJs/tool';
 
 const desktop = function () {
 	return document.getElementById('wallpaper');
 }
 
-const createVue = function () {
-	return new Vue();
-};
-const generateId = function () {
-	return Number(Math.random().toString().substr(3,length) + Date.now()).toString(36);
-}
 const zIndex = {
 	count: 1000, //当前累计层级
 	topAppArr: [],	//当前顶级窗口app的id顺序
