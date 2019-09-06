@@ -2,7 +2,7 @@
 	<div>
 		<div class="taskbar" :class="getSytle">
 			<div class="win">
-				<i class="iconfont icon-windows"></i>
+				<i class="iconfont icon-windows" @click="ClickWindowsIcon"></i>
 			</div>
 			<div class="tasks">
 				<appTask></appTask>
@@ -62,6 +62,14 @@
 				//时间模块
 				timeModuleBus.$on('hide', () => {
 					this.showTimeModule = false;
+				})
+			},
+			ClickWindowsIcon(){
+				import('@/components/module/application/common/app.bus').then(bus => {
+					console.log(222);
+					const notepad = new bus.default.Notepad('使用帮助','一堆数据');
+					console.log(notepad);
+					notepad.create();
 				})
 			}
 		},

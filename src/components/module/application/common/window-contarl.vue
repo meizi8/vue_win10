@@ -1,6 +1,6 @@
 <template>
 	<div class="window-contorl" @click="contorlClick"
-		@contextmenu.prevent.stop="contorlClick" ref="move">
+		@contextmenu.prevent.stop="contorlClick" ref="move" v-show="isShow" :style="'z-index:'+zIndex+';'">
 		<div class="border-cursor">
 			<div class="right type1" v-scale.right></div>
 			<div class="left type1" v-scale.left></div>
@@ -12,7 +12,7 @@
 			<div class="left-bottom type2" v-scale.left.bottom></div>
 		</div>
 		<div class="content">
-			<slot v-if="fatherDom" :father="fatherDom"></slot>
+			<slot v-if="fatherDom" :father="fatherDom" :minimality='minimality' :close='close'></slot>
 		</div>
 	</div>
 </template>
@@ -23,11 +23,36 @@
 	export default {
 		data() {
 			return {
+				isShow: true,
 				fatherDom: null,
+				minimality: null,
+				close: null,
+				zIndex: 99999,
+			}
+		},
+		props: {
+			bus: {
+				type: Object,
+				default: {}
 			}
 		},
 		created() {
-
+			this.minimality = () => {
+				this.isShow = false;
+				this.bus.$emit('removeIndex');
+			}
+			this.close = () => {
+				this.bus.$emit('removeIndex');
+				this.bus.$emit('destroy');
+			}
+			this.bus.$on('toggle', () => {
+				this.isShow = !this.isShow;
+			}).$on('show', (zIndex) => {
+				this.zIndex = zIndex;
+				this.isShow = true;
+			}).$on('hide', () => {
+				this.isShow = false;
+			});
 		},
 		mounted() {
 			this.fatherDom = this.$refs.move;

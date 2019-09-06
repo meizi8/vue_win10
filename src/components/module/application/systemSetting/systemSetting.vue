@@ -1,18 +1,18 @@
 <template>
-	<windowContarl @contextmenu.prevent.stop="rightClick" style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;" :style="'z-index:'+zIndex+';'" v-show="isShow">
+	<windowContarl style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;" :bus="bus">
 		<template v-slot:default="slotProps">
 			<div id="systemSetting">
 				<div class="win-header" v-drag:target="slotProps.father">
 					<div class="win-title">设置</div>
 					<div class="win-control">
 						<div class="minimize">
-							<i class="iconfont icon-minimality" @click="minimality"></i>
+							<i class="iconfont icon-minimality" @click="slotProps.minimality"></i>
 						</div>
 						<div class="windowed">
 							<i class="iconfont icon-windowed"></i></div>
 						<div class="maximize">
 							<i class="iconfont icon-maximize"></i></div>
-						<div class="close" @click="close">
+						<div class="close" @click="slotProps.close">
 							<i class="iconfont icon-close"></i>
 						</div>
 					</div>
@@ -55,7 +55,6 @@
 	export default {
 		data() {
 			return {
-				isShow: true,
 				page: '',
 				menuList: [{
 					flot: 'background',
@@ -69,8 +68,7 @@
 					flot: 'taskbar',
 					text: '任务栏',
 					iconClassName:'icon-taskbar'
-				}, ],
-				zIndex: 99999,
+				}, ]
 			}
 		},
 		created() {
@@ -78,34 +76,11 @@
 				console.log('systemSetting pageChange: ', page);
 				this.page = page;
 			});
-			this.bus.$on('toggle', () => {
-				this.isShow = !this.isShow;
-			});
-			this.bus.$on('show', (zIndex) => {
-				this.zIndex = zIndex;
-				this.isShow = true;
-			});
-			this.bus.$on('hide', () => {
-				this.isShow = false;
-			});
 		},
 
 		methods: {
 			togglePage(e) {
 				this.page = e;
-			},
-			rightClick() {
-				hideAllModule();
-			},
-			//关闭
-			close() {
-				this.bus.$emit('removeIndex');
-				this.bus.$emit('destroy')
-			},
-			//最小化
-			minimality(){
-				this.isShow = false;
-				this.bus.$emit('removeIndex');
 			}
 		},
 		components: {
