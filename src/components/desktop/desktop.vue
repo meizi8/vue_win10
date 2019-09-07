@@ -90,6 +90,7 @@
 		color: #fff;
 		background-size: cover;
 		background-position: center;
+		overflow: hidden;
 	}
 
 </style>
