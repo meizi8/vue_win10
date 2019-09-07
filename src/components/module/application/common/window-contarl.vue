@@ -1,7 +1,7 @@
 <template>
 	<div class="window-contorl" @click="contorlClick"
-		@contextmenu.prevent.stop="contorlClick" ref="move" v-show="isShow" :style="'z-index:'+zIndex+';'" style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;">
-		<div class="border-cursor">
+		@contextmenu.prevent.stop="contorlClick" ref="move" v-show="isShow" :style="[{zIndex:zIndex},parentStyle]" >
+		<div class="border-cursor" v-show="!maximizeStatus">
 			<div class="right type1" v-scale.right></div>
 			<div class="left type1" v-scale.left></div>
 			<div class="top type1" v-scale.top></div>
@@ -12,7 +12,7 @@
 			<div class="left-bottom type2" v-scale.left.bottom></div>
 		</div>
 		<div class="content">
-			<slot v-if="fatherDom" :father="fatherDom" :minimality='minimality' :windowed='windowed' :maximize='maximize' :maximizeStatus='maximizeStatus' :close='close'></slot>
+			<slot v-if="fatherDom" :father="fatherDom" :minimality='minimality' :windowed='windowed' :maximize='maximize' :toggleImize='toggleImize' :maximizeStatus='maximizeStatus' :close='close'></slot>
 		</div>
 	</div>
 </template>
@@ -25,11 +25,7 @@
 			return {
 				isShow: true,
 				fatherDom: null,
-				minimality: null,
-				windowed: null,
-				close: null,
 				maximizeStatus: false,
-				maximize: null,
 				zIndex: 99999,
 			}
 		},
@@ -37,41 +33,13 @@
 			bus: {
 				type: Object,
 				default: {}
-			}
+			},
+			parentStyle: {
+				type: Object,
+				default: {}
+			},
 		},
 		created() {
-			this.minimality = () => {
-				this.isShow = false;
-				this.bus.$emit('removeIndex');
-			}
-			//窗口化
-			this.windowed = () => {
-				this.$refs.move.style.left = this.minstyle.left;
-				this.$refs.move.style.top = this.minstyle.top;
-				this.$refs.move.style.height = this.minstyle.height;
-				this.$refs.move.style.width = this.minstyle.width;
-				this.maximizeStatus = false;
-			}
-			//最大化
-			this.maximize = () => {
-				console.log(this.$refs);
-				console.log(this.$refs.move);
-				this.minstyle = {	//保存最小化样式
-					left: this.$refs.move.style.left,
-					top: this.$refs.move.style.top,
-					height: this.$refs.move.style.height,
-					width: this.$refs.move.style.width,
-				};
-				this.$refs.move.style.left = 0;
-				this.$refs.move.style.top = 0;
-				this.$refs.move.style.height = '100%';
-				this.$refs.move.style.width = '100%';
-				this.maximizeStatus = true;
-			}
-			this.close = () => {
-				this.bus.$emit('removeIndex');
-				this.bus.$emit('destroy');
-			}
 			this.bus.$on('toggle', () => {
 				this.isShow = !this.isShow;
 			}).$on('show', (zIndex) => {
@@ -87,6 +55,41 @@
 		methods: {
 			contorlClick() {
 				hideAllModule();
+			},
+			//最小化
+			minimality(){
+				this.isShow = false;
+				this.bus.$emit('removeIndex');
+			},
+			//窗口化
+			windowed(){
+				this.$refs.move.style.left = this.minstyle.left;
+				this.$refs.move.style.top = this.minstyle.top;
+				this.$refs.move.style.height = this.minstyle.height;
+				this.$refs.move.style.width = this.minstyle.width;
+				this.maximizeStatus = false;
+			},
+			//最大化
+			maximize(){
+				this.minstyle = {	//保存最小化样式
+					left: this.$refs.move.style.left,
+					top: this.$refs.move.style.top,
+					height: this.$refs.move.style.height,
+					width: this.$refs.move.style.width,
+				};
+				this.$refs.move.style.left = 0;
+				this.$refs.move.style.top = 0;
+				this.$refs.move.style.height = '100%';
+				this.$refs.move.style.width = '100%';
+				this.maximizeStatus = true;
+			},
+			//窗口化、最大化切换
+			toggleImize(){
+				this.maximizeStatus ? this.windowed() : this.maximize();
+			},
+			close(){
+				this.bus.$emit('removeIndex');
+				this.bus.$emit('destroy');
 			}
 		},
 		directives: {

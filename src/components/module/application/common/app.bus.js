@@ -44,6 +44,14 @@ class SystemSettingApp{
 				return {
 					page: this.page,
 					bus: this.bus,
+					parentStyle: {
+						'min-width': '500px',
+						'min-height': '320px',
+						'width': '1022px',
+						'height': '730px',
+						'left': '20px',
+						'top': '50px',
+					}
 				}
 			}.bind(this),
 			store

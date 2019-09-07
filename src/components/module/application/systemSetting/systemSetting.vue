@@ -1,9 +1,9 @@
 <template>
-	<windowContarl  :bus="bus">
+	<windowContarl  :bus="bus" :parentStyle='parentStyle'>
 		<!-- 插槽 -->
 		<template v-slot:default="slotProps">
 			<div id="systemSetting">
-				<div class="win-header" v-move="{'dom':slotProps.father,allowMove: !slotProps.maximizeStatus}">
+				<div class="win-header" v-move="{'dom':slotProps.father,allowMove: !slotProps.maximizeStatus}" @dblclick='slotProps.toggleImize'>
 					<div class="win-title">设置</div>
 					<div class="win-control">
 						<div class="minimize">
@@ -17,8 +17,8 @@
 						<div class="maximize" v-else>
 							<i class="iconfont icon-maximize" @click="slotProps.maximize"></i>
 						</div>
-						<div class="close" @click="slotProps.close">
-							<i class="iconfont icon-close"></i>
+						<div class="close">
+							<i class="iconfont icon-close"  @click="slotProps.close"></i>
 						</div>
 					</div>
 				</div>
@@ -27,7 +27,7 @@
 						<div class="subject">
 							<div class="title">个性化</div>
 							<ul class="menu">
-								<li v-for="item in menuList" :key="item.flot" :class="page==item.flot?'active':''"
+								<li v-for="item in menuList" :key="item.flot" :class="page==item.flot&&'active'"
 									@click='togglePage(item.flot)'>
 									<i class="iconfont" :class="item.iconClassName"></i>
 									<span>{{item.text}}</span>
@@ -86,7 +86,7 @@
 		methods: {
 			togglePage(e) {
 				this.page = e;
-			},
+			}
 		},
 		components: {
 			windowContarl,
