@@ -1,6 +1,6 @@
 <template>
 	<div class="window-contorl" @click="contorlClick"
-		@contextmenu.prevent.stop="contorlClick" ref="move" v-show="isShow" :style="'z-index:'+zIndex+';'">
+		@contextmenu.prevent.stop="contorlClick" ref="move" v-show="isShow" :style="'z-index:'+zIndex+';'" style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;">
 		<div class="border-cursor">
 			<div class="right type1" v-scale.right></div>
 			<div class="left type1" v-scale.left></div>
@@ -12,7 +12,7 @@
 			<div class="left-bottom type2" v-scale.left.bottom></div>
 		</div>
 		<div class="content">
-			<slot v-if="fatherDom" :father="fatherDom" :minimality='minimality' :close='close'></slot>
+			<slot v-if="fatherDom" :father="fatherDom" :minimality='minimality' :windowed='windowed' :maximize='maximize' :maximizeStatus='maximizeStatus' :close='close'></slot>
 		</div>
 	</div>
 </template>
@@ -26,7 +26,10 @@
 				isShow: true,
 				fatherDom: null,
 				minimality: null,
+				windowed: null,
 				close: null,
+				maximizeStatus: false,
+				maximize: null,
 				zIndex: 99999,
 			}
 		},
@@ -40,6 +43,30 @@
 			this.minimality = () => {
 				this.isShow = false;
 				this.bus.$emit('removeIndex');
+			}
+			//窗口化
+			this.windowed = () => {
+				this.$refs.move.style.left = this.minstyle.left;
+				this.$refs.move.style.top = this.minstyle.top;
+				this.$refs.move.style.height = this.minstyle.height;
+				this.$refs.move.style.width = this.minstyle.width;
+				this.maximizeStatus = false;
+			}
+			//最大化
+			this.maximize = () => {
+				console.log(this.$refs);
+				console.log(this.$refs.move);
+				this.minstyle = {	//保存最小化样式
+					left: this.$refs.move.style.left,
+					top: this.$refs.move.style.top,
+					height: this.$refs.move.style.height,
+					width: this.$refs.move.style.width,
+				};
+				this.$refs.move.style.left = 0;
+				this.$refs.move.style.top = 0;
+				this.$refs.move.style.height = '100%';
+				this.$refs.move.style.width = '100%';
+				this.maximizeStatus = true;
 			}
 			this.close = () => {
 				this.bus.$emit('removeIndex');

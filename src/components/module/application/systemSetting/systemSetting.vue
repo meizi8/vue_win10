@@ -1,17 +1,22 @@
 <template>
-	<windowContarl style="min-width: 500px;min-height:320px;width:1022px;height:730px;left: 20px;top: 50px;" :bus="bus">
+	<windowContarl  :bus="bus">
+		<!-- 插槽 -->
 		<template v-slot:default="slotProps">
 			<div id="systemSetting">
-				<div class="win-header" v-move="{'dom':slotProps.father,allowMove: !maximizeStatus}">
+				<div class="win-header" v-move="{'dom':slotProps.father,allowMove: !slotProps.maximizeStatus}">
 					<div class="win-title">设置</div>
 					<div class="win-control">
 						<div class="minimize">
 							<i class="iconfont icon-minimality" @click="slotProps.minimality"></i>
 						</div>
-						<div class="windowed" v-if="maximizeStatus">
-							<i class="iconfont icon-windowed" @click="windowed"></i></div>
-						<div class="maximize" v-if="!maximizeStatus">
-							<i class="iconfont icon-maximize" @click="maximize"></i></div>
+						<!-- 窗口化 -->
+						<div class="windowed" v-if="slotProps.maximizeStatus">
+							<i class="iconfont icon-windowed" @click="slotProps.windowed"></i>
+						</div>
+						<!-- 最大华 -->
+						<div class="maximize" v-else>
+							<i class="iconfont icon-maximize" @click="slotProps.maximize"></i>
+						</div>
 						<div class="close" @click="slotProps.close">
 							<i class="iconfont icon-close"></i>
 						</div>
@@ -68,8 +73,7 @@
 					flot: 'taskbar',
 					text: '任务栏',
 					iconClassName:'icon-taskbar'
-				}],
-				maximizeStatus: false,
+				}]
 			}
 		},
 		created() {
@@ -83,29 +87,6 @@
 			togglePage(e) {
 				this.page = e;
 			},
-			windowed(){
-				if(this.minstyle){
-					this.$refs.windowContarl.$el.style.left = this.minstyle.left;
-					this.$refs.windowContarl.$el.style.top = this.minstyle.top;
-					this.$refs.windowContarl.$el.style.height = this.minstyle.height;
-					this.$refs.windowContarl.$el.style.width = this.minstyle.width;
-					this.maximizeStatus = false;
-				}
-			},
-			//最大化
-			maximize(){
-				this.minstyle = {
-					left: this.$refs.windowContarl.$el.style.left,
-					top: this.$refs.windowContarl.$el.style.top,
-					height: this.$refs.windowContarl.$el.style.height,
-					width: this.$refs.windowContarl.$el.style.width,
-				};	//保存最小化样式
-				this.$refs.windowContarl.$el.style.left = 0;
-				this.$refs.windowContarl.$el.style.top = 0;
-				this.$refs.windowContarl.$el.style.height = '100%';
-				this.$refs.windowContarl.$el.style.width = '100%';
-				this.maximizeStatus = true;
-			}
 		},
 		components: {
 			windowContarl,
